@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
     LONG = fh.read()
 setuptools.setup(
     name="ghlocalapi",
-    version="0.0.0",
+    version="0.0.1",
     author="Joakim Sorensen",
     author_email="ludeeus@gmail.com",
     description="",

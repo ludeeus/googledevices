@@ -8,6 +8,7 @@ import asyncio
 import logging
 import json
 import socket
+import time
 
 import aiohttp
 import async_timeout
@@ -55,7 +56,7 @@ class BluetoothScan(object):
                 aiohttp.ClientError, socket.gaierror) as error:
             _LOGGER.error('Error connecting to GHLocalApi, %s', error)
 
-    async def scan_for_devices(self):
+    async def scan_for_devices(self, sleep=5):
         """Scan for bluetooth devices."""
         endpoint = '/setup/bluetooth/scan'
         data = {"enable": True, "clear_results": True, "timeout": 5}
@@ -70,6 +71,7 @@ class BluetoothScan(object):
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
             _LOGGER.error('Error connecting to GHLocalApi, %s', error)
+        time.sleep(sleep)
 
     async def get_scan_result(self):
         """Scan for bluetooth devices."""
