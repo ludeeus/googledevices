@@ -10,8 +10,8 @@ async def test():
     """Example usage of ghlocalapi."""
     async with aiohttp.ClientSession() as session:
         data = BluetoothScan(LOOP, session, IPADDRESS)
-        await data.scan_for_devices()
-        await data.get_scan_result()
+        await data.scan_for_devices() # Start device scan.
+        await data.get_scan_result() # Returns the result after that scan.
 
         print("Device info:", data.devices)
 

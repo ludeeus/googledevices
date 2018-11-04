@@ -1,6 +1,6 @@
-# ghlocalapi [![Build Status](https://travis-ci.com/ludeeus/ghlocalapi.svg?branch=master)](https://travis-ci.com/ludeeus/ghlocalapi)
+# GHLocalApi [![Build Status](https://travis-ci.com/ludeeus/ghlocalapi.svg?branch=master)](https://travis-ci.com/ludeeus/ghlocalapi) [![PyPI version](https://badge.fury.io/py/ghlocalapi.svg)](https://badge.fury.io/py/ghlocalapi)
 
-_Get data from the local API of Google Home devices._
+_Python package to interact with the local API of Google Home devices._
 
 ## Install
 
