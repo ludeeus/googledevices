@@ -4,7 +4,7 @@ import setuptools
 with open("README.md", "r") as fh:
     LONG = fh.read()
 setuptools.setup(
-    name="GHLocalApi",
+    name="ghlocalapi",
     version="0.0.0",
     author="Joakim Sorensen",
     author_email="ludeeus@gmail.com",
@@ -12,7 +12,7 @@ setuptools.setup(
     long_description=LONG,
     install_requires=['aiohttp', 'async_timeout'],
     long_description_content_type="text/markdown",
-    url="https://github.com/ludeeus/GHLocalApi",
+    url="https://github.com/ludeeus/ghlocalapi",
     packages=setuptools.find_packages(),
     classifiers=(
         "Programming Language :: Python :: 3",

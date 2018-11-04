@@ -38,7 +38,7 @@ class BluetoothScan(object):
                 self._status = await response.json()
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to GHLocalAPI, %s', error)
+            _LOGGER.error('Error connecting to ghlocalapi, %s', error)
 
     async def set_discovery_enabled(self):
         """Enable bluetooth discoverablility."""
@@ -53,7 +53,7 @@ class BluetoothScan(object):
                 _LOGGER.debug(response.status)
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to GHLocalAPI, %s', error)
+            _LOGGER.error('Error connecting to ghlocalapi, %s', error)
 
     async def scan_for_devices(self):
         """Scan for bluetooth devices."""
@@ -69,7 +69,7 @@ class BluetoothScan(object):
                 _LOGGER.debug(response.status)
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to GHLocalAPI, %s', error)
+            _LOGGER.error('Error connecting to ghlocalapi, %s', error)
 
     async def get_scan_result(self):
         """Scan for bluetooth devices."""
@@ -81,7 +81,7 @@ class BluetoothScan(object):
                 self._devices = await response.json()
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to GHLocalAPI, %s', error)
+            _LOGGER.error('Error connecting to ghlocalapi, %s', error)
 
     @property
     def status(self):
