@@ -83,7 +83,6 @@ class BluetoothScan(object):
                 aiohttp.ClientError, socket.gaierror) as error:
             _LOGGER.error('Error connecting to GHLocalAPI, %s', error)
 
-
     @property
     def status(self):
         """Return the the bluetooth status of the device."""

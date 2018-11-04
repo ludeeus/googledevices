@@ -1,7 +1,7 @@
 """Example usage of GHLocalApi."""
 import asyncio
 import aiohttp
-from GHLocalApi.bluetooth import BluetoothScan
+from ghlocalapi.bluetooth import BluetoothScan
 
 IPADDRESS = '192.168.2.234'
 
