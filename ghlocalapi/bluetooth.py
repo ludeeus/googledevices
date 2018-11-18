@@ -1,5 +1,5 @@
 """
-Scan for nearby bluetooth devices.
+Bluetooth handling on Google Home units.
 
 This code is released under the terms of the MIT license. See the LICENSE
 file for more details.
@@ -18,7 +18,7 @@ from .const import API, HEADERS
 _LOGGER = logging.getLogger(__name__)
 
 
-class BluetoothScan(object):
+class Bluetooth(object):
     """A class for Bluetooth scan ."""
 
     def __init__(self, loop, session, ipaddress):
