@@ -10,8 +10,8 @@ async def test_bluetooth():
     """Get nearby bluetooth devices."""
     async with aiohttp.ClientSession() as session:
         bluetooth = Bluetooth(LOOP, session, IPADDRESS)
-        await bluetooth.scan_for_devices()  # Start device scan.
-        await bluetooth.get_scan_result()  # Returns the result after that scan.
+        await bluetooth.scan_for_devices()  # Start device scan
+        await bluetooth.get_scan_result()  # Returns the result after that scan
 
         print("Device info:", bluetooth.devices)
 
