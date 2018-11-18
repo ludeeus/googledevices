@@ -1,0 +1,6 @@
+bin/
+lib/
+pyvenv.cfg
+dist/
+*.egg-info/
+__pycache__/
