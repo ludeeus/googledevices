@@ -10,7 +10,7 @@ This Python package is based of the works of [rithvikvibhu/GHLocalApi][GHLocalAp
 pip install ghlocalapi
 ```
 
-Look at the file `example.py` for a usage example.
+Look at the files in the `examples` directory for usage examples.
 
 [travis_status]: https://travis-ci.com/ludeeus/GHLocalApi.svg?branch=master
 [travis]: https://travis-ci.com/ludeeus/ghlocalapi
