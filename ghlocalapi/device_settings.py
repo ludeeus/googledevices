@@ -30,9 +30,14 @@ class DeviceSettings(object):
         endpoint = '/setup/reboot'
         url = API.format(ip=self._ipaddress, endpoint=endpoint)
         data = {'params': 'now'}
+        returnvalue = False
         try:
             async with async_timeout.timeout(5, loop=self._loop):
-                await self._session.post(url, body=data, headers=HEADERS)
+                result = await self._session.post(url, json=data,
+                                                  headers=HEADERS)
+                if result.status == 200:
+                    returnvalue = True
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
             _LOGGER.error('Error connecting to GHLocalApi, %s', error)
+        return returnvalue
