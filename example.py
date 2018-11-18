@@ -21,7 +21,7 @@ async def test_alarms():
     """Example usage of ghlocalapi alarms."""
     async with aiohttp.ClientSession() as session:
         data = Alarms(LOOP, session, IPADDRESS)
-        await data.get_alarms() # Returns active alarms and timers.
+        await data.get_alarms()  # Returns active alarms and timers.
 
         print("Alarms:", data.alarms)
 
