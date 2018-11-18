@@ -13,7 +13,7 @@ pip install ghlocalapi
 Look at the files in the `examples` directory for usage examples.
 
 [travis_status]: https://travis-ci.com/ludeeus/GHLocalApi.svg?branch=master
-[travis]: https://travis-ci.com/ludeeus/ghlocalapi
+[travis]: https://travis-ci.com/ludeeus/GHLocalApi
 [pypi]:https://pypi.org/project/ghlocalapi/
 [pypi_badge]: https://badge.fury.io/py/ghlocalapi.svg
 [GHLocalAPI]: https://github.com/rithvikvibhu/GHLocalApi
