@@ -5,6 +5,7 @@ This code is released under the terms of the MIT license. See the LICENSE
 file for more details.
 """
 
+
 def get_device_type(device_type=0):
     """Return the device type from a device_type list."""
     device_types = {
