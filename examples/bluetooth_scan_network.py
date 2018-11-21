@@ -10,6 +10,8 @@ IPRANGE = '192.168.2.0/24'
 
 async def bluetooth_scan():
     """
+    Get devices from all GH units on the network.
+
     This will scan the IPRANGE defined above for GH units.
     Then do a multirun scan on each unit.
     Compiling all devices from all units so you can see which unit has
