@@ -25,7 +25,7 @@ class NetworkScan(object):
         units = []
         for ip_address in ipaddress.IPv4Network(iprange):
             sock = socket.socket()
-            sock.settimeout(0.005)
+            sock.settimeout(0.01)
             host = str(ip_address)
             try:
                 scan_result = sock.connect((host, PORT))
@@ -35,11 +35,16 @@ class NetworkScan(object):
                           host, (str(PORT)))
             if scan_result is None:
                 ghlocalapi = DeviceInfo(self._loop, self._session, host)
-                data = await ghlocalapi.get_device_info()
+                await ghlocalapi.get_device_info()
+                data = ghlocalapi.device_info
+                print(data)
                 units.append({
                     'host': host,
                     'name': data['name'],
-                    'model': data['device_info']['model_name']
+                    'model': data['device_info']['model_name'],
+                    'bluetooth_supported': data['device_info']
+                                           ['capabilities']
+                                           .get('bluetooth_supported', False)
                 })
             sock.close()
         return units
