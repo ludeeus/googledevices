@@ -38,13 +38,13 @@ class NetworkScan(object):
                 ghlocalapi = DeviceInfo(self._loop, self._session, host)
                 await ghlocalapi.get_device_info()
                 data = ghlocalapi.device_info
+                suports = data['device_info']['capabilities']
                 units.append({
                     'host': host,
                     'name': data['name'],
                     'model': data['device_info']['model_name'],
-                    'bluetooth_supported': data['device_info']
-                                           ['capabilities']
-                                           .get('bluetooth_supported', False)
+                    'bluetooth_supported': suports.get('bluetooth_supported',
+                                                       False)
                 })
             sock.close()
         return units
