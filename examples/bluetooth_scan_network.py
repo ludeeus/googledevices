@@ -9,7 +9,12 @@ IPRANGE = '192.168.2.0/24'
 
 
 async def bluetooth_scan():
-    """Get nearby bluetooth devices."""
+    """
+    This will scan the IPRANGE defined above for GH units.
+    Then do a multirun scan on each unit.
+    Compiling all devices from all units so you can see which unit has
+    the stronges signal to the device.
+    """
     devices = {}
     async with aiohttp.ClientSession() as session:
         ghlocalapi = NetworkScan(LOOP, session)
@@ -22,7 +27,7 @@ async def bluetooth_scan():
                 ghname = ghlocalapi.device_info.get('name')
             async with aiohttp.ClientSession() as session:
                 ghlocalapi = Bluetooth(LOOP, session, host['host'])
-                await ghlocalapi.scan_for_devices()
+                await ghlocalapi.scan_for_devices_multi_run()
                 await ghlocalapi.get_scan_result()
                 for device in ghlocalapi.devices:
                     mac = device['mac_address']
