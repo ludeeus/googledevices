@@ -6,7 +6,7 @@ from ghlocalapi.bluetooth import Bluetooth
 IPADDRESS = '192.168.2.234'
 
 
-async def test_bluetooth():
+async def bluetooth_scan():
     """Get nearby bluetooth devices."""
     async with aiohttp.ClientSession() as session:
         ghlocalapi = Bluetooth(LOOP, session, IPADDRESS)
@@ -17,4 +17,4 @@ async def test_bluetooth():
 
 
 LOOP = asyncio.get_event_loop()
-LOOP.run_until_complete(test_bluetooth())
+LOOP.run_until_complete(bluetooth_scan())
