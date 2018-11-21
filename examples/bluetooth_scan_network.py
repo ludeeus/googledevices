@@ -7,6 +7,7 @@ from ghlocalapi.device_info import DeviceInfo
 
 IPRANGE = '192.168.2.0/24'
 
+
 async def bluetooth_scan():
     """Get nearby bluetooth devices."""
     devices = {}
