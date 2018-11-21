@@ -5,6 +5,7 @@ from ghlocalapi.scan import NetworkScan
 
 IPRANGE = '192.168.2.0/24'
 
+
 async def device_info():
     """Get device info from GH."""
     async with aiohttp.ClientSession() as session:

@@ -12,6 +12,7 @@ from ghlocalapi.const import PORT
 
 _LOGGER = logging.getLogger(__name__)
 
+
 class NetworkScan(object):
     """A class for device dettings."""
 
@@ -29,7 +30,7 @@ class NetworkScan(object):
             host = str(ip_address)
             try:
                 scan_result = sock.connect((host, PORT))
-            except:
+            except socket.error:
                 scan_result = 1
             _LOGGER.debug('Checking port connectivity on %s:%s',
                           host, (str(PORT)))
@@ -37,7 +38,6 @@ class NetworkScan(object):
                 ghlocalapi = DeviceInfo(self._loop, self._session, host)
                 await ghlocalapi.get_device_info()
                 data = ghlocalapi.device_info
-                print(data)
                 units.append({
                     'host': host,
                     'name': data['name'],
