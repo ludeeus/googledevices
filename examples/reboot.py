@@ -9,8 +9,8 @@ IPADDRESS = '192.168.2.234'
 async def reboot():
     """Reboot a Google Home unit."""
     async with aiohttp.ClientSession() as session:
-        device_settings = DeviceSettings(LOOP, session, IPADDRESS)
-        result = await device_settings.reboot()
+        ghlocalapi = DeviceSettings(LOOP, session, IPADDRESS)
+        result = await ghlocalapi.reboot()
 
         print("Reboot info:", result)
 
