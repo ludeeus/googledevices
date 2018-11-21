@@ -13,5 +13,6 @@ async def device_info():
         result = await ghlocalapi.scan_for_units(IPRANGE)
         print(result)
 
+
 LOOP = asyncio.get_event_loop()
 LOOP.run_until_complete(device_info())
