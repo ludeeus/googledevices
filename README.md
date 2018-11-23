@@ -2,7 +2,7 @@
 
 _Python package to interact with the local API of Google Home devices._
 
-This Python package is based of the works of [rithvikvibhu/googledevices][googledevices]
+This Python package is based of the works of [rithvikvibhu/GHLocalApi][googledevices]
 
 ## Install
 
@@ -16,4 +16,4 @@ Look at the files in the `examples` directory for usage examples.
 [travis]: https://travis-ci.com/ludeeus/googledevices
 [pypi]:https://pypi.org/project/googledevices/
 [pypi_badge]: https://badge.fury.io/py/googledevices.svg
-[googledevices]: https://github.com/rithvikvibhu/googledevices
+[GHLocalApi]: https://github.com/rithvikvibhu/GHLocalApi
