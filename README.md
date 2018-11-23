@@ -2,7 +2,7 @@
 
 _API wrapper for Google devices written in Python.._
 
-This Python package is based of the works of [rithvikvibhu/GHLocalApi][googledevices]
+This Python package is based of the works of [rithvikvibhu/GHLocalApi][GHLocalApi]
 
 ## Install
 
