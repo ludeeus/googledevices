@@ -1,7 +1,7 @@
-"""Example usage of ghlocalapi."""
+"""Example usage of googledevices."""
 import asyncio
 import aiohttp
-from ghlocalapi.bluetooth import Bluetooth
+from googledevices.bluetooth import Bluetooth
 
 IPADDRESS = '192.168.2.234'
 
@@ -9,11 +9,11 @@ IPADDRESS = '192.168.2.234'
 async def bluetooth_scan():
     """Get nearby bluetooth devices."""
     async with aiohttp.ClientSession() as session:
-        ghlocalapi = Bluetooth(LOOP, session, IPADDRESS)
-        await ghlocalapi.scan_for_devices()  # Start device scan
-        await ghlocalapi.get_scan_result()  # Returns the result
+        googledevices = Bluetooth(LOOP, session, IPADDRESS)
+        await googledevices.scan_for_devices()  # Start device scan
+        await googledevices.get_scan_result()  # Returns the result
 
-        print("Device info:", ghlocalapi.devices)
+        print("Device info:", googledevices.devices)
 
 
 LOOP = asyncio.get_event_loop()

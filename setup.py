@@ -4,15 +4,15 @@ import setuptools
 with open("README.md", "r") as fh:
     LONG = fh.read()
 setuptools.setup(
-    name="ghlocalapi",
-    version="0.3.1",
+    name="googledevices",
+    version="0.4.0",
     author="Joakim Sorensen",
     author_email="ludeeus@gmail.com",
     description="",
     long_description=LONG,
     install_requires=['aiohttp', 'async_timeout'],
     long_description_content_type="text/markdown",
-    url="https://github.com/ludeeus/ghlocalapi",
+    url="https://github.com/ludeeus/googledevices",
     packages=setuptools.find_packages(),
     classifiers=(
         "Programming Language :: Python :: 3",

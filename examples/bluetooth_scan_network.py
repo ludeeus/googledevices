@@ -1,9 +1,9 @@
-"""Example usage of ghlocalapi."""
+"""Example usage of googledevices."""
 import asyncio
 import aiohttp
-from ghlocalapi.bluetooth import Bluetooth
-from ghlocalapi.scan import NetworkScan
-from ghlocalapi.device_info import DeviceInfo
+from googledevices.bluetooth import Bluetooth
+from googledevices.scan import NetworkScan
+from googledevices.device_info import DeviceInfo
 
 IPRANGE = '192.168.2.0/24'
 
@@ -19,19 +19,19 @@ async def bluetooth_scan():
     """
     devices = {}
     async with aiohttp.ClientSession() as session:
-        ghlocalapi = NetworkScan(LOOP, session)
-        result = await ghlocalapi.scan_for_units(IPRANGE)
+        googledevices = NetworkScan(LOOP, session)
+        result = await googledevices.scan_for_units(IPRANGE)
     for host in result:
         if host['assistant_supported']:
             async with aiohttp.ClientSession() as session:
-                ghlocalapi = DeviceInfo(LOOP, session, host['host'])
-                await ghlocalapi.get_device_info()
-                ghname = ghlocalapi.device_info.get('name')
+                googledevices = DeviceInfo(LOOP, session, host['host'])
+                await googledevices.get_device_info()
+                ghname = googledevices.device_info.get('name')
             async with aiohttp.ClientSession() as session:
-                ghlocalapi = Bluetooth(LOOP, session, host['host'])
-                await ghlocalapi.scan_for_devices_multi_run()
-                await ghlocalapi.get_scan_result()
-                for device in ghlocalapi.devices:
+                googledevices = Bluetooth(LOOP, session, host['host'])
+                await googledevices.scan_for_devices_multi_run()
+                await googledevices.get_scan_result()
+                for device in googledevices.devices:
                     mac = device['mac_address']
                     if not devices.get(mac, False):
                         # New device

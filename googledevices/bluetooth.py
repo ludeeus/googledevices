@@ -13,7 +13,7 @@ import time
 import aiohttp
 import async_timeout
 
-from ghlocalapi.utils.const import API, HEADERS
+from googledevices.utils.const import API, HEADERS
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -39,7 +39,7 @@ class Bluetooth(object):
                 self._status = await response.json()
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to GHLocalApi, %s', error)
+            _LOGGER.error('Error connecting to googledevices, %s', error)
 
     async def set_discovery_enabled(self):
         """Enable bluetooth discoverablility."""
@@ -54,7 +54,7 @@ class Bluetooth(object):
                 _LOGGER.debug(response.status)
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to GHLocalApi, %s', error)
+            _LOGGER.error('Error connecting to googledevices, %s', error)
 
     async def scan_for_devices(self, sleep=5):
         """Scan for bluetooth devices."""
@@ -70,7 +70,7 @@ class Bluetooth(object):
                 _LOGGER.debug(response.status)
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to GHLocalApi, %s', error)
+            _LOGGER.error('Error connecting to googledevices, %s', error)
         time.sleep(sleep)
 
     async def get_scan_result(self):
@@ -83,7 +83,7 @@ class Bluetooth(object):
                 self._devices = await response.json()
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to GHLocalApi, %s', error)
+            _LOGGER.error('Error connecting to googledevices, %s', error)
 
     async def scan_for_devices_multi_run(self, runs=2):
         """Scan for devices multiple times."""

@@ -1,7 +1,7 @@
-"""Example usage of ghlocalapi."""
+"""Example usage of googledevices."""
 import asyncio
 import aiohttp
-from ghlocalapi.device_info import DeviceInfo
+from googledevices.device_info import DeviceInfo
 
 IPADDRESS = '192.168.2.234'
 
@@ -9,10 +9,10 @@ IPADDRESS = '192.168.2.234'
 async def device_info():
     """Get device info from GH."""
     async with aiohttp.ClientSession() as session:
-        ghlocalapi = DeviceInfo(LOOP, session, IPADDRESS)
-        await ghlocalapi.get_device_info()
+        googledevices = DeviceInfo(LOOP, session, IPADDRESS)
+        await googledevices.get_device_info()
 
-        print("Device info:", ghlocalapi.device_info)
+        print("Device info:", googledevices.device_info)
 
 
 LOOP = asyncio.get_event_loop()

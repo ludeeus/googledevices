@@ -7,8 +7,8 @@ file for more details.
 import socket
 import ipaddress
 import logging
-from ghlocalapi.device_info import DeviceInfo
-from ghlocalapi.utils.const import PORT
+from googledevices.device_info import DeviceInfo
+from googledevices.utils.const import PORT
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -35,9 +35,9 @@ class NetworkScan(object):
             _LOGGER.debug('Checking port connectivity on %s:%s',
                           host, (str(PORT)))
             if scan_result is None:
-                ghlocalapi = DeviceInfo(self._loop, self._session, host)
-                await ghlocalapi.get_device_info()
-                data = ghlocalapi.device_info
+                googledevices = DeviceInfo(self._loop, self._session, host)
+                await googledevices.get_device_info()
+                data = googledevices.device_info
                 if data is not None:
                     cap = data['device_info']['capabilities']
                     units.append({

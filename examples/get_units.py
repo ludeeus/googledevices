@@ -1,7 +1,7 @@
-"""Example usage of ghlocalapi."""
+"""Example usage of googledevices."""
 import asyncio
 import aiohttp
-from ghlocalapi.scan import NetworkScan
+from googledevices.scan import NetworkScan
 
 IPRANGE = '192.168.2.0/24'
 
@@ -9,8 +9,8 @@ IPRANGE = '192.168.2.0/24'
 async def device_info():
     """Get device info from GH."""
     async with aiohttp.ClientSession() as session:
-        ghlocalapi = NetworkScan(LOOP, session)
-        result = await ghlocalapi.scan_for_units(IPRANGE)
+        googledevices = NetworkScan(LOOP, session)
+        result = await googledevices.scan_for_units(IPRANGE)
         print(result)
 
 

@@ -1,7 +1,7 @@
-"""Example usage of ghlocalapi."""
+"""Example usage of googledevices."""
 import asyncio
 import aiohttp
-from ghlocalapi.device_settings import DeviceSettings
+from googledevices.device_settings import DeviceSettings
 
 IPADDRESS = '192.168.2.234'
 
@@ -9,8 +9,8 @@ IPADDRESS = '192.168.2.234'
 async def reboot():
     """Reboot a Google Home unit."""
     async with aiohttp.ClientSession() as session:
-        ghlocalapi = DeviceSettings(LOOP, session, IPADDRESS)
-        result = await ghlocalapi.reboot()
+        googledevices = DeviceSettings(LOOP, session, IPADDRESS)
+        result = await googledevices.reboot()
 
         print("Reboot info:", result)
 

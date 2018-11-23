@@ -11,7 +11,7 @@ import socket
 import aiohttp
 import async_timeout
 
-from ghlocalapi.utils.const import API
+from googledevices.utils.const import API
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -39,7 +39,7 @@ class DeviceInfo(object):
                 self._device_info = await response.json()
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to GHLocalApi, %s', error)
+            _LOGGER.error('Error connecting to googledevices, %s', error)
 
     @property
     def device_info(self):
