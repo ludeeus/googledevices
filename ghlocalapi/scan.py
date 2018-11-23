@@ -8,7 +8,7 @@ import socket
 import ipaddress
 import logging
 from ghlocalapi.device_info import DeviceInfo
-from ghlocalapi.const import PORT
+from ghlocalapi.utils.const import PORT
 
 _LOGGER = logging.getLogger(__name__)
 

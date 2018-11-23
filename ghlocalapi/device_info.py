@@ -11,7 +11,7 @@ import socket
 import aiohttp
 import async_timeout
 
-from .const import API
+from ghlocalapi.utils.const import API
 
 _LOGGER = logging.getLogger(__name__)
 
