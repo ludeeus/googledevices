@@ -51,4 +51,4 @@ jobs:
         user: "$PYPIUSER"
         password: "$PYPIKEY"
         on:
-          tags: true
+          branch: master
