@@ -1,6 +1,6 @@
 # googledevices [![Build Status][travis_status]][travis] [![PyPI version][pypi_badge]][pypi]
 
-_Python package to interact with the local API of Google Home devices._
+_API wrapper for Google devices written in Python.._
 
 This Python package is based of the works of [rithvikvibhu/GHLocalApi][googledevices]
 
