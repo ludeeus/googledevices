@@ -46,17 +46,35 @@ def device_info(ip_address):
 
 
 @scan_network_group.command()
-@click.argument('subnet', required=1)
-def scan_network(subnet):
+@click.option('--network', '-N', type=str, default=None,
+              help="The network you want to scan\
+              in this format '192.168.1.0/24'.")
+@click.option('--feature', '-F', type=str, default=None,
+              help="Filter discovery result to\
+              units that contain these feature.")
+def scan_network(network, feature):
     """Scan the entire subnet for Google devices."""
     from googledevices.utils.scan import NetworkScan
 
     async def get_all_units():
-        """Get device info from GH."""
+        """Get device info for all Google devices."""
+        all_devices = []
+        if network is None:
+            import netifaces
+            gateway = netifaces.gateways()
+            subnet = gateway['default'][netifaces.AF_INET][0][:-1] + '0/24'
+        else:
+            subnet = network
         async with aiohttp.ClientSession() as session:
             googledevices = NetworkScan(LOOP, session)
             result = await googledevices.scan_for_units(subnet)
-            print(json.dumps(result, indent=4, sort_keys=True))
+            if feature:
+                for unit in result:
+                    if unit[feature]:
+                        all_devices.append(unit)
+            else:
+                all_devices = result
+            print(json.dumps(all_devices, indent=4, sort_keys=True))
     LOOP.run_until_complete(get_all_units())
 
 
