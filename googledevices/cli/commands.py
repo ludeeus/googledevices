@@ -6,30 +6,12 @@ import aiohttp
 
 
 @click.group()
-def device_info_group():
+def commands():
     """Click group."""
     pass
 
 
-@click.group()
-def scan_network_group():
-    """Click group."""
-    pass
-
-
-@click.group()
-def controll_notifications_group():
-    """Click group."""
-    pass
-
-
-@click.group()
-def reboot_group():
-    """Click group."""
-    pass
-
-
-@device_info_group.command()
+@commands.command()
 @click.argument('ip_address', required=1)
 def device_info(ip_address):
     """Get information about a Google device on your network."""
@@ -45,7 +27,7 @@ def device_info(ip_address):
     LOOP.run_until_complete(get_device_info())
 
 
-@scan_network_group.command()
+@commands.command()
 @click.option('--network', '-N', type=str, default=None,
               help="The network you want to scan\
               in this format '192.168.1.0/24'.")
@@ -78,7 +60,7 @@ def scan_network(network, feature):
     LOOP.run_until_complete(get_all_units())
 
 
-@reboot_group.command()
+@commands.command()
 @click.argument('ip_address', required=1)
 def reboot(ip_address):
     """Reboot a Google device."""
@@ -93,6 +75,4 @@ def reboot(ip_address):
 
 
 LOOP = asyncio.get_event_loop()
-CLI = click.CommandCollection(sources=[device_info_group,
-                                       scan_network_group,
-                                       reboot_group])
+CLI = click.CommandCollection(sources=[commands])
