@@ -12,6 +12,9 @@ pip install googledevices
 
 Look at the files in the `examples` directory for usage examples.
 
+This package also comes with a CLI.
+To start using that run `googledevices --help` after installation.
+
 [travis_status]: https://travis-ci.com/ludeeus/googledevices.svg?branch=master
 [travis]: https://travis-ci.com/ludeeus/googledevices
 [pypi]:https://pypi.org/project/googledevices/

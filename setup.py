@@ -10,7 +10,7 @@ setuptools.setup(
     author_email="ludeeus@gmail.com",
     description="",
     long_description=LONG,
-    install_requires=['aiohttp', 'async_timeout'],
+    install_requires=['aiohttp', 'async_timeout', 'click'],
     long_description_content_type="text/markdown",
     url="https://github.com/ludeeus/googledevices",
     packages=setuptools.find_packages(),
@@ -19,4 +19,9 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ),
+    entry_points={
+        'console_scripts': [
+            'googledevices = googledevices.cli.commands:CLI'
+        ]
+    },
 )
