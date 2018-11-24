@@ -49,7 +49,7 @@ def device_info(ip_address):
 @click.argument('subnet', required=1)
 def scan_network(subnet):
     """Scan the entire subnet for Google devices."""
-    from googledevices.scan import NetworkScan
+    from googledevices.utils.scan import NetworkScan
 
     async def get_all_units():
         """Get device info from GH."""

@@ -1,7 +1,7 @@
 """Example usage of googledevices."""
 import asyncio
 import aiohttp
-from googledevices.scan import NetworkScan
+from googledevices.utils.scan import NetworkScan
 
 IPRANGE = '192.168.2.0/24'
 

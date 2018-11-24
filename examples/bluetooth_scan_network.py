@@ -2,7 +2,7 @@
 import asyncio
 import aiohttp
 from googledevices.api.bluetooth import Bluetooth
-from googledevices.scan import NetworkScan
+from googledevices.utils.scan import NetworkScan
 from googledevices.api.device_info import DeviceInfo
 
 IPRANGE = '192.168.2.0/24'
