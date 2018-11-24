@@ -1,9 +1,9 @@
 """Example usage of googledevices."""
 import asyncio
 import aiohttp
-from googledevices.bluetooth import Bluetooth
+from googledevices.api.bluetooth import Bluetooth
 from googledevices.scan import NetworkScan
-from googledevices.device_info import DeviceInfo
+from googledevices.api.device_info import DeviceInfo
 
 IPRANGE = '192.168.2.0/24'
 

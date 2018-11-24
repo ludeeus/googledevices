@@ -7,7 +7,7 @@ file for more details.
 import socket
 import ipaddress
 import logging
-from googledevices.device_info import DeviceInfo
+from googledevices.api.device_info import DeviceInfo
 from googledevices.utils.const import PORT
 
 _LOGGER = logging.getLogger(__name__)

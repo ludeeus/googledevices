@@ -1,7 +1,7 @@
 """Example usage of googledevices."""
 import asyncio
 import aiohttp
-from googledevices.bluetooth import Bluetooth
+from googledevices.api.bluetooth import Bluetooth
 
 IPADDRESS = '192.168.2.234'
 
