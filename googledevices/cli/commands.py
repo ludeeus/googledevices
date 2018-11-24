@@ -43,8 +43,8 @@ def scan_network(network, feature):
         all_devices = []
         if network is None:
             import netifaces
-            gateway = netifaces.gateways()
-            subnet = gateway['default'][netifaces.AF_INET][0][:-1] + '0/24'
+            gateway = netifaces.gateways().get('default', {})
+            subnet = gateway.get(netifaces.AF_INET, ())[0][:-1] + '0/24'
         else:
             subnet = network
         async with aiohttp.ClientSession() as session:
