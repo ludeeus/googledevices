@@ -94,30 +94,31 @@ class Bluetooth(object):
             await self.get_scan_result()
             if master is None:
                 for device in self._devices:
-                    mac = device['mac_address']
+                    mac = device.get('mac_address')
                     master[mac] = {}
-                    master[mac]['rssi'] = device['rssi']
-                    master[mac]['device_class'] = device['device_class']
-                    master[mac]['name'] = device['name']
-                    master[mac]['device_type'] = device['device_type']
+                    master[mac]['rssi'] = device.get('rssi')
+                    master[mac]['device_class'] = device.get('device_class')
+                    master[mac]['name'] = device.get('name')
+                    master[mac]['device_type'] = device.get('device_type')
                     master[mac]['count'] = 1
             else:
                 for device in self._devices:
-                    mac = device['mac_address']
+                    mac = device.get('mac_address')
                     if master.get(mac, False):
-                        master[mac]['rssi'] = device['rssi']
+                        master[mac]['rssi'] = device.get('rssi')
                         master[mac]['count'] = str(1 + 1)
                     else:
                         master[mac] = {}
-                        master[mac]['rssi'] = device['rssi']
-                        master[mac]['device_class'] = device['device_class']
-                        master[mac]['name'] = device['name']
-                        master[mac]['device_type'] = device['device_type']
+                        master[mac]['rssi'] = device.get('rssi')
+                        device_class = device.get('device_class')
+                        master[mac]['device_class'] = device_class
+                        master[mac]['name'] = device.get('name')
+                        master[mac]['device_type'] = device.get('device_type')
                         master[mac]['count'] = 1
             run = run + 1
             result = []
             for device in master:
-                if int(master[device]['count']) > 1:
+                if int(master.get(device, {}).get('count')) > 1:
                     result.append(master[device])
         self._devices = result
 

@@ -4,3 +4,5 @@ pyvenv.cfg
 dist/
 *.egg-info/
 __pycache__/
+lib64
+share/

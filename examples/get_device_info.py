@@ -1,7 +1,7 @@
 """Example usage of googledevices."""
 import asyncio
 import aiohttp
-from googledevices.device_info import DeviceInfo
+from googledevices.api.device_info import DeviceInfo
 
 IPADDRESS = '192.168.2.234'
 

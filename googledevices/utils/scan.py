@@ -7,7 +7,7 @@ file for more details.
 import socket
 import ipaddress
 import logging
-from googledevices.device_info import DeviceInfo
+from googledevices.api.device_info import DeviceInfo
 from googledevices.utils.const import PORT
 
 _LOGGER = logging.getLogger(__name__)
@@ -39,13 +39,14 @@ class NetworkScan(object):
                 await googledevices.get_device_info()
                 data = googledevices.device_info
                 if data is not None:
-                    cap = data['device_info']['capabilities']
+                    info = data.get('device_info', {})
+                    cap = info.get('capabilities', {})
                     units.append({
                         'host': host,
-                        'name': data['name'],
-                        'model': data['device_info']['model_name'],
-                        'assistant_supported': cap.get('assistant_supported',
-                                                       False)
+                        'name': data.get('name'),
+                        'model': info.get('model_name'),
+                        'assistant': cap.get('assistant_supported', False),
+                        'bluetooth': cap.get('bluetooth_supported', False)
                     })
             sock.close()
         return units
