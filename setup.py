@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
     LONG = fh.read()
 setuptools.setup(
     name="googledevices",
-    version="0.4.0",
+    version="0.5.0",
     author="Joakim Sorensen",
     author_email="ludeeus@gmail.com",
     description="",
