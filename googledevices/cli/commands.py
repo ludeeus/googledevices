@@ -8,7 +8,6 @@ import aiohttp
 @click.group()
 def commands():
     """Click group."""
-    pass
 
 
 @commands.command()

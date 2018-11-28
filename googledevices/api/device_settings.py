@@ -39,7 +39,8 @@ class DeviceSettings(object):
                     returnvalue = True
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to googledevices, %s', error)
+            _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
+                          error)
         return returnvalue
 
     async def set_eureka_info(self, data):
@@ -55,7 +56,8 @@ class DeviceSettings(object):
                     returnvalue = True
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to googledevices, %s', error)
+            _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
+                          error)
         return returnvalue
 
     async def control_notifications(self, active):
@@ -73,5 +75,6 @@ class DeviceSettings(object):
                     returnvalue = True
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to googledevices, %s', error)
+            _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
+                          error)
         return returnvalue

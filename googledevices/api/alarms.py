@@ -37,7 +37,8 @@ class Alarms(object):
                 self._alarms = await response.json()
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to googledevices, %s', error)
+            _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
+                          error)
 
     async def get_alarm_volume(self):
         """Get the alarm volume for the device."""
@@ -49,7 +50,8 @@ class Alarms(object):
                 self._alarmvolume = await response.json()
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to googledevices, %s', error)
+            _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
+                          error)
 
     async def set_alarm_volume(self, volume):
         """Set the alarm volume for the device."""
@@ -66,7 +68,8 @@ class Alarms(object):
                     returnvalue = True
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to googledevices, %s', error)
+            _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
+                          error)
         return returnvalue
 
     @property

@@ -39,7 +39,8 @@ class Bluetooth(object):
                 self._status = await response.json()
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to googledevices, %s', error)
+            _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
+                          error)
 
     async def set_discovery_enabled(self):
         """Enable bluetooth discoverablility."""
@@ -54,7 +55,8 @@ class Bluetooth(object):
                 _LOGGER.debug(response.status)
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to googledevices, %s', error)
+            _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
+                          error)
 
     async def scan_for_devices(self, sleep=5):
         """Scan for bluetooth devices."""
@@ -70,7 +72,8 @@ class Bluetooth(object):
                 _LOGGER.debug(response.status)
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to googledevices, %s', error)
+            _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
+                          error)
         time.sleep(sleep)
 
     async def get_scan_result(self):
@@ -83,7 +86,8 @@ class Bluetooth(object):
                 self._devices = await response.json()
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to googledevices, %s', error)
+            _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
+                          error)
 
     async def scan_for_devices_multi_run(self, runs=2):
         """Scan for devices multiple times."""

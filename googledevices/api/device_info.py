@@ -39,7 +39,8 @@ class DeviceInfo(object):
                 self._device_info = await response.json()
         except (asyncio.TimeoutError,
                 aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to googledevices, %s', error)
+            _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
+                          error)
 
     @property
     def device_info(self):
