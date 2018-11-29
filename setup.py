@@ -1,27 +1,20 @@
 """Setup configuration."""
 import setuptools
+import googledevices.utils.const as package
 
 with open("README.md", "r") as fh:
     LONG = fh.read()
 setuptools.setup(
-    name="googledevices",
-    version="0.5.0",
-    author="Joakim Sorensen",
-    author_email="ludeeus@gmail.com",
+    name=package.NAME,
+    version=package.VERSION,
+    author=package.AUTHOR.get('name'),
+    author_email=package.AUTHOR.get('email'),
     description="",
     long_description=LONG,
-    install_requires=['aiohttp', 'async_timeout', 'click', 'netifaces'],
+    install_requires=package.REQUIREMENTS,
     long_description_content_type="text/markdown",
-    url="https://github.com/ludeeus/googledevices",
+    url=package.URLS.get('github'),
     packages=setuptools.find_packages(),
-    classifiers=(
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-    ),
-    entry_points={
-        'console_scripts': [
-            'googledevices = googledevices.cli.commands:CLI'
-        ]
-    },
+    classifiers=package.CLASSIFIERS,
+    entry_points=package.ENTRY_POINTS
 )

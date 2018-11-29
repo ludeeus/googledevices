@@ -1,7 +1,7 @@
 language: python
 stages:
   - linting
-  - install
+  - test
   - deploy
 
 jobs:
@@ -33,13 +33,29 @@ jobs:
       python: "3.6"
       script: find . -name \*.py -exec flake8 {} +
 
-    # Test install the module
-    - stage: install
+    # Test the package
+    - stage: test
       install: pip install -U pip setuptools wheel
-      name: "Setup test"
+      name: "Test with Python 3.5.3"
+      python: "3.5.3"
+      script:
+        - python setup.py install
+        - googledevices info --system
+    - stage: test
+      install: pip install -U pip setuptools wheel
+      name: "Test with Python 3.5 (newest)"
+      python: "3.5"
+      script:
+        - python setup.py install
+        - googledevices info --system
+    - stage: test
+      install: pip install -U pip setuptools wheel
+      name: "Test with Python 3.6 (newest)"
       python: "3.6"
       script:
         - python setup.py install
+        - googledevices info --system
+        
 
     # Deploy to PyPi if all tests pass and change was done on master.
     - stage: deploy
