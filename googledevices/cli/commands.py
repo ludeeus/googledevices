@@ -27,6 +27,22 @@ def device_info(ip_address):
 
 
 @commands.command()
+@click.argument('ip_address', required=1)
+def get_bluetooth_devices(ip_address):
+    """Get bluetooth devices from a unit."""
+    from googledevices.api.bluetooth import Bluetooth
+
+    async def bluetooth_scan():
+        """Get nearby bluetooth devices."""
+        async with aiohttp.ClientSession() as session:
+            googledevices = Bluetooth(LOOP, session, ip_address)
+            await googledevices.scan_for_devices()
+            await googledevices.get_scan_result()
+            print(json.dumps(googledevices.devices, indent=4, sort_keys=True))
+    LOOP.run_until_complete(bluetooth_scan())
+
+
+@commands.command()
 @click.option('--subnet', type=str, default=None, help="Format 0.0.0.0/00")
 def get_all_devices(subnet):
     """Get information about all devices on your network."""
