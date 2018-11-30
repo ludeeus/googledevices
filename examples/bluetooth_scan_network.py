@@ -1,9 +1,10 @@
 """Example usage of googledevices."""
 import asyncio
+import json
 import aiohttp
 from googledevices.api.bluetooth import Bluetooth
-from googledevices.utils.scan import NetworkScan
 from googledevices.api.device_info import DeviceInfo
+from googledevices.utils.scan import NetworkScan
 
 IPRANGE = '192.168.2.0/24'
 
@@ -22,7 +23,7 @@ async def bluetooth_scan():
         googledevices = NetworkScan(LOOP, session)
         result = await googledevices.scan_for_units(IPRANGE)
     for host in result:
-        if host['assistant_supported']:
+        if host['assistant']:
             async with aiohttp.ClientSession() as session:
                 googledevices = DeviceInfo(LOOP, session, host['host'])
                 await googledevices.get_device_info()
@@ -42,7 +43,7 @@ async def bluetooth_scan():
                         # Better RSSI value on this device
                         devices[mac]['rssi'] = device['rssi']
                         devices[mac]['ghunit'] = ghname
-    print(devices)
+    print(json.dumps(devices, indent=4, sort_keys=True))
 
 LOOP = asyncio.get_event_loop()
 LOOP.run_until_complete(bluetooth_scan())

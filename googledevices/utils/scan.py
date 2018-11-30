@@ -14,7 +14,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 class NetworkScan(object):
-    """A class for device dettings."""
+    """A class nettwork scan."""
 
     def __init__(self, loop, session):
         """Initialize the class."""

@@ -140,5 +140,22 @@ def info(system):
         print("Python version:  ", platform.python_version())
 
 
+@commands.command()
+@click.argument('ip_address', required=1)
+@click.option('--test', '-T', type=str, required=1)
+@click.option('--timeout', type=int)
+def debug(ip_address, test, timeout=30):
+    """Get information about this package."""
+    from googledevices.utils.debug import Debug
+
+    async def connectivity():
+        """Reboot a Google Home unit."""
+        async with aiohttp.ClientSession() as session:
+            googledevices = Debug(LOOP, session, ip_address)
+            await googledevices.connectivity(timeout)
+    if test == 'connectivity':
+        LOOP.run_until_complete(connectivity())
+
+
 LOOP = asyncio.get_event_loop()
 CLI = click.CommandCollection(sources=[commands])
