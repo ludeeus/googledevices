@@ -87,6 +87,13 @@ class Bluetooth(object):
             _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
                           error)
 
+    async def get_devices(self, sleep=5):
+        """Get bluetooth devices."""
+        await self.scan_for_devices()
+        await asyncio.sleep(sleep)
+        await self.get_scan_result
+        return self.devices
+
     async def scan_for_devices_multi_run(self, runs=2):
         """Scan for devices multiple times."""
         run = 1
