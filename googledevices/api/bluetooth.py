@@ -8,7 +8,6 @@ import asyncio
 import logging
 import json
 import socket
-import time
 
 import aiohttp
 import async_timeout
@@ -58,7 +57,7 @@ class Bluetooth(object):
             _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
                           error)
 
-    async def scan_for_devices(self, sleep=5):
+    async def scan_for_devices(self):
         """Scan for bluetooth devices."""
         endpoint = '/setup/bluetooth/scan'
         data = {"enable": True, "clear_results": True, "timeout": 5}
@@ -74,7 +73,6 @@ class Bluetooth(object):
                 aiohttp.ClientError, socket.gaierror) as error:
             _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
                           error)
-        time.sleep(sleep)
 
     async def get_scan_result(self):
         """Scan for bluetooth devices."""

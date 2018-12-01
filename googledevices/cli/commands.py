@@ -1,6 +1,7 @@
 """CLI commands."""
 import asyncio
 import json
+import time
 import click
 import aiohttp
 
@@ -37,6 +38,7 @@ def get_bluetooth_devices(ip_address):
         async with aiohttp.ClientSession() as session:
             googledevices = Bluetooth(LOOP, session, ip_address)
             await googledevices.scan_for_devices()
+            time.sleep(5)
             await googledevices.get_scan_result()
             print(json.dumps(googledevices.devices, indent=4, sort_keys=True))
     LOOP.run_until_complete(bluetooth_scan())
@@ -63,7 +65,7 @@ def get_all_devices(subnet):
             googledevices = NetworkScan(LOOP, session)
             result = await googledevices.scan_for_units(ipscope)
         for host in result:
-            if host['assistant']:
+            if host['bluetooth']:
                 async with aiohttp.ClientSession() as session:
                     googledevices = DeviceInfo(LOOP, session, host['host'])
                     await googledevices.get_device_info()
@@ -71,6 +73,7 @@ def get_all_devices(subnet):
                 async with aiohttp.ClientSession() as session:
                     googledevices = Bluetooth(LOOP, session, host['host'])
                     await googledevices.scan_for_devices_multi_run()
+                    time.sleep(5)
                     await googledevices.get_scan_result()
                     for device in googledevices.devices:
                         mac = device['mac_address']

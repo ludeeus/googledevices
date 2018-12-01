@@ -1,6 +1,7 @@
 """Example usage of googledevices."""
 import asyncio
 import json
+import time
 import aiohttp
 from googledevices.api.bluetooth import Bluetooth
 from googledevices.api.device_info import DeviceInfo
@@ -31,6 +32,7 @@ async def bluetooth_scan():
             async with aiohttp.ClientSession() as session:
                 googledevices = Bluetooth(LOOP, session, host['host'])
                 await googledevices.scan_for_devices_multi_run()
+                time.sleep(5)
                 await googledevices.get_scan_result()
                 for device in googledevices.devices:
                     mac = device['mac_address']
