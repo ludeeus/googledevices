@@ -138,6 +138,22 @@ def reboot(ip_address):
 
 
 @commands.command()
+@click.argument('ip_address', required=0)
+def get_wifi_info(ip_address):
+    """Reboot a Google device."""
+    from googledevices.api.googlewifi import Info
+
+    async def wifi():
+        """Get information from Google WiFi."""
+        async with aiohttp.ClientSession() as session:
+            googledevices = Info(LOOP, session, ip_address)
+            await googledevices.get_wifi_info()
+            print(json.dumps(googledevices.wifi_info,
+                             indent=4, sort_keys=True))
+    LOOP.run_until_complete(wifi())
+
+
+@commands.command()
 @click.option('--system', '-S', is_flag=True, help="Print more output.")
 def info(system):
     """Get information about this package."""

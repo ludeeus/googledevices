@@ -1,7 +1,13 @@
 """Constants."""
 API = 'http://{ip}:8008{endpoint}'
-HEADERS = {'Content-Type': 'application/json'}
+GOOGLE_WIFI_API = 'http://{ip}/api/v1/{endpoint}'
+HEADERS = {
+        'Content-Type': 'application/json',
+        'Host': 'localhost'
+    }
 PORT = 8008
+
+WIFI_HOSTS = ['192.168.86.1', 'testwifi.here', 'onhub.here']
 
 # Setup information:
 VERSION = '0.5.0'
