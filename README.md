@@ -2,7 +2,6 @@
 
 [![Build Status][travis_status]][travis]
 [![PyPI version][pypi_badge]][pypi]
-[![Maintainability][maintainability-badge]][maintainability-url]
 
 _API wrapper for Google devices written in Python._
 
@@ -77,8 +76,6 @@ _This is not affiliated, associated, authorized, endorsed by, or in any way offi
 [issues]: https://github.com/ludeeus/googledevices/issues
 [issues-new]: https://github.com/ludeeus/googledevices/issues/new
 [ludeeus]: https://github.com/ludeeus
-[maintainability-badge]: https://api.codeclimate.com/v1/badges/7c88f618d3668ac24a22/maintainability
-[maintainability-url]: https://codeclimate.com/github/ludeeus/googledevices/maintainability
 [travis]: https://travis-ci.com/ludeeus/googledevices
 [travis_status]: https://travis-ci.com/ludeeus/googledevices.svg?branch=master
 [pull-request]: https://github.com/ludeeus/googledevices/compare
