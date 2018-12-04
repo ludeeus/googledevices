@@ -1,4 +1,8 @@
-# googledevices [![Build Status][travis_status]][travis] [![PyPI version][pypi_badge]][pypi]
+# googledevices
+
+[![Build Status][travis_status]][travis]
+[![PyPI version][pypi_badge]][pypi]
+[![Maintainability][maintainability-badge]][maintainability-url]
 
 _API wrapper for Google devices written in Python._
 
@@ -53,11 +57,29 @@ username@hostname:~$ googledevices scan-network
 
 _This is not affiliated, associated, authorized, endorsed by, or in any way officially connected with [Alphabet][alphabet], or any of its subsidiaries or its affiliates. The name "Google" as well as related names, marks, emblems and images are registered trademarks of [Alphabet][alphabet]._
 
+
+## Contributing
+
+1. [Check for open features/bugs][issues]
+  or [initiate a discussion on one][issues-new].
+2. [Fork the repository][fork].
+3. Install the dev environment: `make init`.
+4. Enter the virtual environment: `pipenv shell`
+5. Code your new feature or bug fix.
+6. Run `make lint` and make sure the score still is `10.00/10`
+7. Submit a [pull request][pull-request]!
+
 [alphabet]: https://abc.xyz/
 [eliseomartelli]: https://github.com/eliseomartelli
+[fork]: https://github.com/ludeeus/googledevices/fork
 [GHLocalApi]: https://github.com/rithvikvibhu/GHLocalApi
+[issues]: https://github.com/ludeeus/googledevices/issues
+[issues-new]: https://github.com/ludeeus/googledevices/issues/new
 [ludeeus]: https://github.com/ludeeus
+[maintainability-badge]: https://api.codeclimate.com/v1/badges/7c88f618d3668ac24a22/maintainability
+[maintainability-url]: https://codeclimate.com/github/ludeeus/googledevices/maintainability
 [travis]: https://travis-ci.com/ludeeus/googledevices
 [travis_status]: https://travis-ci.com/ludeeus/googledevices.svg?branch=master
+[pull-request]: https://github.com/ludeeus/googledevices/compare
 [pypi]:https://pypi.org/project/googledevices/
 [pypi_badge]: https://badge.fury.io/py/googledevices.svg
