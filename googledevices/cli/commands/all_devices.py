@@ -47,6 +47,6 @@ def get_all_devices(loop, subnet):
             result = await googledevices.scan_for_units(ipscope)
         for host in result:
             if host['bluetooth']:
-                get_device_info(host)
+                await get_device_info(host)
         print(dumps(devices, indent=4, sort_keys=True))
     loop.run_until_complete(bluetooth_scan())

@@ -10,7 +10,7 @@ PORT = 8008
 WIFI_HOSTS = ['192.168.86.1', 'testwifi.here', 'onhub.here']
 
 # Setup information:
-VERSION = '0.6.0'
+VERSION = '0.6.1'
 NAME = 'googledevices'
 URLS = {
     'github': 'https://github.com/ludeeus/googledevices',
