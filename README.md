@@ -14,7 +14,7 @@ This Python package is based of the works of [rithvikvibhu/GHLocalApi][GHLocalAp
 pip install googledevices
 ```
 
-Look at the files in the `examples` directory for usage examples.
+Look at the files in the ['commands'][commands] directory for usage examples.
 
 This package also comes with a CLI.  
 To start using that run `googledevices --help` after installation.
@@ -70,6 +70,7 @@ _This is not affiliated, associated, authorized, endorsed by, or in any way offi
 7. Submit a [pull request][pull-request]!
 
 [alphabet]: https://abc.xyz/
+[commands]: https://github.com/ludeeus/googledevices/tree/master/googledevices/cli/commands
 [eliseomartelli]: https://github.com/eliseomartelli
 [fork]: https://github.com/ludeeus/googledevices/fork
 [GHLocalApi]: https://github.com/rithvikvibhu/GHLocalApi

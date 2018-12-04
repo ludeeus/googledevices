@@ -5,16 +5,13 @@ This code is released under the terms of the MIT license. See the LICENSE
 file for more details.
 """
 import asyncio
-import logging
 import json
-import socket
-
+from socket import gaierror
 import aiohttp
 import async_timeout
-
+from googledevices.utils.exceptions import ConnectionException
 from googledevices.utils.const import API, HEADERS
-
-_LOGGER = logging.getLogger(__name__)
+import googledevices.utils.log as log
 
 
 class Bluetooth(object):
@@ -36,10 +33,9 @@ class Bluetooth(object):
             async with async_timeout.timeout(5, loop=self._loop):
                 response = await self._session.get(url)
                 self._status = await response.json()
-        except (asyncio.TimeoutError,
-                aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
-                          error)
+        except (asyncio.TimeoutError, aiohttp.ClientError, gaierror) as error:
+            raise ConnectionException(self._ipaddress, error)
+        return self._status
 
     async def set_discovery_enabled(self):
         """Enable bluetooth discoverablility."""
@@ -51,28 +47,23 @@ class Bluetooth(object):
                 response = await self._session.post(url,
                                                     headers=HEADERS,
                                                     data=json.dumps(data))
-                _LOGGER.debug(response.status)
-        except (asyncio.TimeoutError,
-                aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
-                          error)
+                await log.debug(response.status)
+        except (asyncio.TimeoutError, aiohttp.ClientError, gaierror) as error:
+            raise ConnectionException(self._ipaddress, error)
 
     async def scan_for_devices(self):
         """Scan for bluetooth devices."""
         endpoint = '/setup/bluetooth/scan'
         data = {"enable": True, "clear_results": True, "timeout": 5}
         url = API.format(ip=self._ipaddress, endpoint=endpoint)
-        await self.set_discovery_enabled()
         try:
             async with async_timeout.timeout(5, loop=self._loop):
                 response = await self._session.post(url,
                                                     headers=HEADERS,
                                                     data=json.dumps(data))
-                _LOGGER.debug(response.status)
-        except (asyncio.TimeoutError,
-                aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
-                          error)
+                await log.debug(response.status)
+        except (asyncio.TimeoutError, aiohttp.ClientError, gaierror) as error:
+            raise ConnectionException(self._ipaddress, error)
 
     async def get_scan_result(self):
         """Scan for bluetooth devices."""
@@ -82,14 +73,14 @@ class Bluetooth(object):
             async with async_timeout.timeout(5, loop=self._loop):
                 response = await self._session.get(url)
                 self._devices = await response.json()
-        except (asyncio.TimeoutError,
-                aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
-                          error)
+                await log.debug(self._devices)
+        except (asyncio.TimeoutError, aiohttp.ClientError, gaierror) as error:
+            raise ConnectionException(self._ipaddress, error)
+        return self._devices
 
-    async def get_devices(self, sleep=5):
+    async def get_devices(self, runs=2, sleep=5):
         """Get bluetooth devices."""
-        await self.scan_for_devices()
+        await self.scan_for_devices_multi_run(runs)
         await asyncio.sleep(sleep)
         await self.get_scan_result
         return self.devices
@@ -130,6 +121,8 @@ class Bluetooth(object):
                 if int(master.get(device, {}).get('count')) > 1:
                     result.append(master[device])
         self._devices = result
+        await log.debug(self._devices)
+        return self._devices
 
     @property
     def status(self):

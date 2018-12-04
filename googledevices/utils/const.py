@@ -1,16 +1,16 @@
 """Constants."""
 API = 'http://{ip}:8008{endpoint}'
+DEFAULT_DEVICE_NAME = 'GoogleDevice'
 GOOGLE_WIFI_API = 'http://{ip}/api/v1/{endpoint}'
 HEADERS = {
-        'Content-Type': 'application/json',
-        'Host': 'localhost'
+    'Content-Type': 'application/json',
+    'Host': 'localhost'
     }
 PORT = 8008
-
 WIFI_HOSTS = ['192.168.86.1', 'testwifi.here', 'onhub.here']
 
 # Setup information:
-VERSION = '0.5.0'
+VERSION = '0.6.0'
 NAME = 'googledevices'
 URLS = {
     'github': 'https://github.com/ludeeus/googledevices',
@@ -35,6 +35,6 @@ CLASSIFIERS = ("Programming Language :: Python :: 3",
                "Operating System :: OS Independent")
 ENTRY_POINTS = {
     'console_scripts': [
-        'googledevices = googledevices.cli.commands:CLI'
+        'googledevices = googledevices.cli.cli:CLI'
     ]
 }

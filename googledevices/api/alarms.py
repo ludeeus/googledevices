@@ -5,15 +5,12 @@ This code is released under the terms of the MIT license. See the LICENSE
 file for more details.
 """
 import asyncio
-import logging
-import socket
-
+from socket import gaierror
 import aiohttp
 import async_timeout
-
+from googledevices.utils.exceptions import ConnectionException
 from googledevices.utils.const import API, HEADERS
-
-_LOGGER = logging.getLogger(__name__)
+import googledevices.utils.log as log
 
 
 class Alarms(object):
@@ -35,10 +32,10 @@ class Alarms(object):
             async with async_timeout.timeout(5, loop=self._loop):
                 response = await self._session.get(url)
                 self._alarms = await response.json()
-        except (asyncio.TimeoutError,
-                aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
-                          error)
+        except (asyncio.TimeoutError, aiohttp.ClientError, gaierror) as error:
+            raise ConnectionException(self._ipaddress, error)
+        await log.debug(self._alarms)
+        return self._alarms
 
     async def get_alarm_volume(self):
         """Get the alarm volume for the device."""
@@ -48,10 +45,10 @@ class Alarms(object):
             async with async_timeout.timeout(5, loop=self._loop):
                 response = await self._session.post(url, headers=HEADERS)
                 self._alarmvolume = await response.json()
-        except (asyncio.TimeoutError,
-                aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
-                          error)
+        except (asyncio.TimeoutError, aiohttp.ClientError, gaierror) as error:
+            raise ConnectionException(self._ipaddress, error)
+        await log.debug(self._alarmvolume)
+        return self._alarmvolume
 
     async def set_alarm_volume(self, volume):
         """Set the alarm volume for the device."""
@@ -66,10 +63,8 @@ class Alarms(object):
                                                     headers=HEADERS)
                 if response.status == 200:
                     returnvalue = True
-        except (asyncio.TimeoutError,
-                aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
-                          error)
+        except (asyncio.TimeoutError, aiohttp.ClientError, gaierror) as error:
+            raise ConnectionException(self._ipaddress, error)
         return returnvalue
 
     @property

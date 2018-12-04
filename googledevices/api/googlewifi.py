@@ -5,15 +5,11 @@ This code is released under the terms of the MIT license. See the LICENSE
 file for more details.
 """
 import asyncio
-import logging
-import socket
-
+from socket import gaierror
 import aiohttp
 import async_timeout
-
 from googledevices.utils.const import GOOGLE_WIFI_API, WIFI_HOSTS
-
-_LOGGER = logging.getLogger(__name__)
+from googledevices.utils.exceptions import ConnectionException
 
 
 class Info(object):
@@ -39,10 +35,9 @@ class Info(object):
                     async with async_timeout.timeout(5, loop=self._loop):
                         await self._session.get(url)
                         self._wifi_host = host
-                except (asyncio.TimeoutError,
-                        aiohttp.ClientError, socket.gaierror) as error:
-                    _LOGGER.error('Error connecting to %s - %s', host,
-                                  error)
+                except (asyncio.TimeoutError, aiohttp.ClientError,
+                        gaierror):
+                    self._wifi_host = None
         return self._wifi_host
 
     async def get_wifi_info(self):
@@ -54,10 +49,8 @@ class Info(object):
             async with async_timeout.timeout(5, loop=self._loop):
                 response = await self._session.get(url)
                 self._wifi_info = await response.json()
-        except (asyncio.TimeoutError,
-                aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to %s - %s', self._wifi_host,
-                          error)
+        except (asyncio.TimeoutError, aiohttp.ClientError, gaierror) as error:
+            raise ConnectionException(self._ipaddress, error)
         return self.wifi_info
 
     @property

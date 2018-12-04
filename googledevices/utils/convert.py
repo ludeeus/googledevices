@@ -14,7 +14,7 @@ def get_device_type(device_type=0):
         2: "Low Energy - LE-only",
         3: "Dual Mode - BR/EDR/LE"
     }
-    if device_type in [0, 1, 2, 3]:
+    if device_type in [1, 2, 3]:
         return_value = device_types[device_type]
     else:
         return_value = device_types[0]

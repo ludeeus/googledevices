@@ -6,11 +6,8 @@ file for more details.
 """
 import socket
 import ipaddress
-import logging
 from googledevices.api.device_info import DeviceInfo
 from googledevices.utils.const import PORT
-
-_LOGGER = logging.getLogger(__name__)
 
 
 class NetworkScan(object):
@@ -26,14 +23,12 @@ class NetworkScan(object):
         units = []
         for ip_address in ipaddress.IPv4Network(iprange):
             sock = socket.socket()
-            sock.settimeout(0.02)
+            sock.settimeout(0.05)
             host = str(ip_address)
             try:
                 scan_result = sock.connect((host, PORT))
             except socket.error:
                 scan_result = 1
-            _LOGGER.debug('Checking port connectivity on %s:%s',
-                          host, (str(PORT)))
             if scan_result is None:
                 googledevices = DeviceInfo(self._loop, self._session, host)
                 await googledevices.get_device_info()

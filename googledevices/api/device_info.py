@@ -5,15 +5,12 @@ This code is released under the terms of the MIT license. See the LICENSE
 file for more details.
 """
 import asyncio
-import logging
-import socket
-
+from socket import gaierror
 import aiohttp
 import async_timeout
-
-from googledevices.utils.const import API
-
-_LOGGER = logging.getLogger(__name__)
+from googledevices.utils.const import API, DEFAULT_DEVICE_NAME
+from googledevices.utils.exceptions import ConnectionException
+import googledevices.utils.log as log
 
 
 class DeviceInfo(object):
@@ -24,10 +21,11 @@ class DeviceInfo(object):
         self._loop = loop
         self._ipaddress = ipaddress
         self._session = session
+        self._name = 'GoogleDevice'
         self._device_info = {}
 
     async def get_device_info(self):
-        """Get the bluetooth status of the device."""
+        """Get device information for the unit.."""
         endpoint = '/setup/eureka_info'
         url = API.format(ip=self._ipaddress, endpoint=endpoint)
         params = "params=version,audio,name,build_info,detail,device_info, \
@@ -37,12 +35,17 @@ class DeviceInfo(object):
             async with async_timeout.timeout(5, loop=self._loop):
                 response = await self._session.get(url, params=params)
                 self._device_info = await response.json()
-        except (asyncio.TimeoutError,
-                aiohttp.ClientError, socket.gaierror) as error:
-            _LOGGER.error('Error connecting to %s - %s', self._ipaddress,
-                          error)
+        except (asyncio.TimeoutError, aiohttp.ClientError, gaierror) as error:
+            raise ConnectionException(self._ipaddress, error)
+        await log.debug(self._device_info)
+        return self._device_info
 
     @property
     def device_info(self):
         """Return the device info if any."""
         return self._device_info
+
+    @property
+    def name(self):
+        """Return the device name."""
+        return self._device_info.get('name', DEFAULT_DEVICE_NAME)

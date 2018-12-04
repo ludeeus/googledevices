@@ -5,11 +5,9 @@ This code is released under the terms of the MIT license. See the LICENSE
 file for more details.
 """
 import socket
+import asyncio
 import time
-import logging
 from googledevices.utils.const import PORT
-
-_LOGGER = logging.getLogger(__name__)
 
 
 class Debug(object):
@@ -39,4 +37,4 @@ class Debug(object):
                     print(now, "- OK")
                 else:
                     print(now, "- ERROR")
-                time.sleep(1)
+                asyncio.sleep(1)
