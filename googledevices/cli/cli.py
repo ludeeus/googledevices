@@ -61,6 +61,15 @@ def get_wifi_info(ip_address):
     command.get_wifi_info(LOOP, ip_address)
 
 
+@commands.command('googlewifi-devices')
+@click.argument('ip_address', required=0)
+@click.option('--show', '-S', type=str, help="List only 'mac' or 'ip'")
+def get_wifi_devices(ip_address, show=None):
+    """Reboot a Google device."""
+    import googledevices.cli.commands.googlewifi as command
+    command.get_wifi_devices(LOOP, ip_address, show)
+
+
 @commands.command('info')
 @click.option('--system', '-S', is_flag=True, help="Print more output.")
 def info(system):
