@@ -9,7 +9,7 @@ setuptools.setup(
     version=package.VERSION,
     author=package.AUTHOR.get('name'),
     author_email=package.AUTHOR.get('email'),
-    description="",
+    description=package.DESCRIPTION,
     long_description=LONG,
     install_requires=package.REQUIREMENTS,
     long_description_content_type="text/markdown",

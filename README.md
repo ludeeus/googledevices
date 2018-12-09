@@ -3,7 +3,7 @@
 [![Build Status][travis_status]][travis]
 [![PyPI version][pypi_badge]][pypi]
 
-_API wrapper for Google devices written in Python._
+_Get information form, and control various Google devices._
 
 This Python package is based of the works of [rithvikvibhu/GHLocalApi][GHLocalApi]
 

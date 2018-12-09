@@ -12,6 +12,7 @@ WIFI_HOSTS = ['192.168.86.1', 'testwifi.here', 'onhub.here']
 # Setup information:
 VERSION = '0.6.1'
 NAME = 'googledevices'
+DESCRIPTION = 'Get information form, and control various Google devices.'
 URLS = {
     'github': 'https://github.com/ludeeus/googledevices',
     'pypi': 'https://pypi.org/project/googledevices'
