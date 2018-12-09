@@ -82,7 +82,7 @@ class Bluetooth(object):
         """Get bluetooth devices."""
         await self.scan_for_devices_multi_run(runs)
         await asyncio.sleep(sleep)
-        await self.get_scan_result
+        await self.get_scan_result()
         return self.devices
 
     async def scan_for_devices_multi_run(self, runs=2):
