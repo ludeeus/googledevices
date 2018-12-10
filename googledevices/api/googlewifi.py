@@ -36,6 +36,7 @@ class Info(object):
                     async with async_timeout.timeout(5, loop=self._loop):
                         await self._session.get(url)
                         self._wifi_host = host
+                        return self._wifi_host
                 except (asyncio.TimeoutError, aiohttp.ClientError,
                         gaierror):
                     self._wifi_host = None

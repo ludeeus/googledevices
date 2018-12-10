@@ -1,5 +1,5 @@
 """
-Get GH devices on the local network.
+Get Google devices on the local network.
 
 This code is released under the terms of the MIT license. See the LICENSE
 file for more details.
@@ -7,6 +7,7 @@ file for more details.
 import socket
 import ipaddress
 from googledevices.api.device_info import DeviceInfo
+from googledevices.api.googlewifi import Info
 from googledevices.utils.const import PORT
 
 
@@ -19,8 +20,19 @@ class NetworkScan(object):
         self._session = session
 
     async def scan_for_units(self, iprange):
-        """Scan local network for GH units."""
+        """Scan local network for Google devices."""
         units = []
+        googlewifi = Info(self._loop, self._session)
+        await googlewifi.get_wifi_info()
+        if googlewifi.wifi_host is not None:
+            wifi = {
+                'assistant': False,
+                'bluetooth': False,
+                'host': googlewifi.wifi_host,
+                'model': googlewifi.wifi_info.get('system', {}).get('modelId'),
+                'name': 'Google WiFi'
+            }
+            units.append(wifi)
         for ip_address in ipaddress.IPv4Network(iprange):
             sock = socket.socket()
             sock.settimeout(0.05)
