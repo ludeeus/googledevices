@@ -71,7 +71,7 @@ class Devices(object):
 
     def __init__(self, loop, session, ipaddress=None):
         """Initialize the class."""
-        self.info = Info(loop, session)
+        self.info = Info(loop, session, ipaddress)
         self._ipaddress = ipaddress
         self._wifi_host = None
         self._devices = []

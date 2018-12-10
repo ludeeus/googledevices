@@ -7,7 +7,12 @@ HEADERS = {
     'Host': 'localhost'
     }
 PORT = 8008
-WIFI_HOSTS = ['192.168.86.1', 'testwifi.here', 'onhub.here']
+WIFI_HOSTS = ['192.168.86.1',
+              '192.168.11.1',
+              '192.168.2.1',
+              '192.168.1.1',
+              'testwifi.here',
+              'onhub.here']
 
 # Setup information:
 VERSION = '0.6.1'
