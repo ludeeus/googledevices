@@ -15,7 +15,7 @@ WIFI_HOSTS = ['192.168.86.1',
               'onhub.here']
 
 # Setup information:
-VERSION = '0.6.1'
+VERSION = '0.7.0'
 NAME = 'googledevices'
 DESCRIPTION = 'Get information form, and control various Google devices.'
 URLS = {

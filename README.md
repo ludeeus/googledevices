@@ -16,7 +16,25 @@ pip install googledevices
 Look at the files in the ['commands'][commands] directory for usage examples.
 
 This package also comes with a CLI.  
-To start using that run `googledevices --help` after installation.
+
+```bash
+Usage: googledevices [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  alarm-volume           Get or set alarm volume.
+  debug                  Get debug information.
+  device-info            Get information about a Google device on your...
+  get-all-devices        Get information about all devices on your network.
+  get-bluetooth-devices  Get bluetooth devices from a unit.
+  googlewifi-devices     Reboot a Google device.
+  googlewifi-info        Reboot a Google device.
+  info                   Get information about this package.
+  reboot                 Reboot a Google device.
+  scan-network           Scan the entire subnet for Google devices.
+```
 
 Sample usage of the CLI:
 
