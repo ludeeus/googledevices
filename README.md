@@ -3,7 +3,7 @@
 [![Build Status][travis_status]][travis]
 [![PyPI version][pypi_badge]][pypi]
 
-_Get information form, and control various Google devices._
+_Get information from, and control various Google devices._
 
 This Python package is based of the works of [rithvikvibhu/GHLocalApi][GHLocalApi]
 
@@ -29,8 +29,8 @@ Commands:
   device-info            Get information about a Google device on your...
   get-all-devices        Get information about all devices on your network.
   get-bluetooth-devices  Get bluetooth devices from a unit.
-  googlewifi-devices     Reboot a Google device.
-  googlewifi-info        Reboot a Google device.
+  googlewifi-clients     Get devices from google wifi.
+  googlewifi-info        Get information about google wifi.
   info                   Get information about this package.
   reboot                 Reboot a Google device.
   scan-network           Scan the entire subnet for Google devices.

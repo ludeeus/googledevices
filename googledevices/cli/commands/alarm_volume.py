@@ -1,20 +1,20 @@
 """Example usage of googledevices."""
-from aiohttp import ClientSession
-from googledevices.api.alarms import Alarms
+from googledevices.helpers import gdh_session
+from googledevices.api.cast.alarm import Alarm
 
 
-def alarm_volume(loop, ip_address, mode, volume=None):
+def alarm_volume(host, loop, mode, volume=None):
     """Handle alarm volume."""
     async def set_alarm_volume():
         """Get alarms and timers from GH."""
-        async with ClientSession() as session:
-            googledevices = Alarms(loop, session, ip_address)
-            await googledevices.set_alarm_volume(None)
+        async with gdh_session() as session:
+            googledevices = Alarm(host, loop, session)
+            await googledevices.set_alarm_volume(volume)
 
     async def get_alarm_volume():
         """Get alarms and timers from GH."""
-        async with ClientSession() as session:
-            googledevices = Alarms(loop, session, ip_address)
+        async with gdh_session() as session:
+            googledevices = Alarm(host, loop, session)
             await googledevices.get_alarm_volume()
             print("Volume:", googledevices.alarm_volume)
 

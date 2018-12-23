@@ -1,26 +1,25 @@
 """Get information about all devices on your network."""
-from asyncio import sleep
-from json import dumps
-from aiohttp import ClientSession
+from googledevices.helpers import gdh_session, gdh_sleep
+from googledevices.utils.convert import format_json
 
 
 def get_all_devices(loop, subnet):
     """Get information about all devices on your network."""
-    from googledevices.api.bluetooth import Bluetooth
+    from googledevices.api.cast.bluetooth import Bluetooth
     from googledevices.utils.scan import NetworkScan
-    from googledevices.api.device_info import DeviceInfo
+    from googledevices.api.cast.info import Info
     devices = {}
 
     async def get_device_info(host):
         """Grab device information."""
-        async with ClientSession() as session:
-            googledevices = DeviceInfo(loop, session, host['host'])
+        async with gdh_session() as session:
+            googledevices = Info(host.get('host'), loop, session)
             await googledevices.get_device_info()
             ghname = googledevices.device_info.get('name')
-        async with ClientSession() as session:
-            googledevices = Bluetooth(loop, session, host.get('host'))
-            await googledevices.scan_for_devices_multi_run()
-            await sleep(5)
+        async with gdh_session() as session:
+            googledevices = Bluetooth(host.get('host'), loop, session)
+            await googledevices.scan_for_devices()
+            await gdh_sleep()
             await googledevices.get_scan_result()
             for device in googledevices.devices:
                 mac = device['mac_address']
@@ -42,11 +41,11 @@ def get_all_devices(loop, subnet):
             ipscope = gateway.get(netifaces.AF_INET, ())[0][:-1] + '0/24'
         else:
             ipscope = subnet
-        async with ClientSession() as session:
+        async with gdh_session() as session:
             googledevices = NetworkScan(loop, session)
             result = await googledevices.scan_for_units(ipscope)
         for host in result:
             if host['bluetooth']:
                 await get_device_info(host)
-        print(dumps(devices, indent=4, sort_keys=True))
+        print(format_json(devices))
     loop.run_until_complete(bluetooth_scan())

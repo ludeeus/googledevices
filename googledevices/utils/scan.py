@@ -1,14 +1,10 @@
-"""
-Get Google devices on the local network.
-
-This code is released under the terms of the MIT license. See the LICENSE
-file for more details.
-"""
+"""Get Google devices on the local network."""
 import socket
 import ipaddress
-from googledevices.api.device_info import DeviceInfo
-from googledevices.api.googlewifi import Info
-from googledevices.utils.const import PORT
+from googledevices.api.cast.info import Info as CastInfo
+from googledevices.api.wifi.info import Info as WifiInfo
+from googledevices.utils.const import CASTPORT
+from googledevices.helpers import gdh_session
 
 
 class NetworkScan(object):
@@ -16,14 +12,15 @@ class NetworkScan(object):
 
     def __init__(self, loop, session):
         """Initialize the class."""
-        self._loop = loop
-        self._session = session
+        self.session = session
+        self.loop = loop
 
     async def scan_for_units(self, iprange):
         """Scan local network for Google devices."""
         units = []
-        googlewifi = Info(self._loop, self._session)
-        await googlewifi.get_wifi_info()
+        async with gdh_session() as session:
+            googlewifi = WifiInfo(loop=self.loop, session=session)
+            await googlewifi.get_wifi_info()
         if googlewifi.wifi_host is not None:
             wifi = {
                 'assistant': False,
@@ -33,17 +30,18 @@ class NetworkScan(object):
                 'name': 'Google WiFi'
             }
             units.append(wifi)
-        for ip_address in ipaddress.IPv4Network(iprange):
+        for host in ipaddress.IPv4Network(iprange):
             sock = socket.socket()
-            sock.settimeout(0.05)
-            host = str(ip_address)
+            sock.settimeout(0.2)
+            host = str(host)
             try:
-                scan_result = sock.connect((host, PORT))
+                scan_result = sock.connect((host, CASTPORT))
             except socket.error:
                 scan_result = 1
             if scan_result is None:
-                googledevices = DeviceInfo(self._loop, self._session, host)
-                await googledevices.get_device_info()
+                async with gdh_session() as session:
+                    googledevices = CastInfo(host, self.loop, session)
+                    await googledevices.get_device_info()
                 data = googledevices.device_info
                 if data is not None:
                     info = data.get('device_info', {})

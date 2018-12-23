@@ -1,6 +1,6 @@
 """CLI commands."""
-from asyncio import get_event_loop
 import click
+from googledevices.helpers import gdh_loop
 
 
 @click.group()
@@ -9,19 +9,19 @@ async def commands():
 
 
 @commands.command('device-info')
-@click.argument('ip_address', required=1)
-def device_info(ip_address):
+@click.argument('host', required=1)
+def device_info(host):
     """Get information about a Google device on your network."""
     import googledevices.cli.commands.device_info as command
-    command.device_info(LOOP, ip_address)
+    command.device_info(host, LOOP)
 
 
 @commands.command('get-bluetooth-devices')
-@click.argument('ip_address', required=1)
-def get_bluetooth_devices(ip_address):
+@click.argument('host', required=1)
+def get_bluetooth_devices(host):
     """Get bluetooth devices from a unit."""
     import googledevices.cli.commands.bluetooth_devices as command
-    command.get_bluetooth_devices(LOOP, ip_address)
+    command.get_bluetooth_devices(host, LOOP)
 
 
 @commands.command('get-all-devices')
@@ -46,28 +46,28 @@ def scan_network(network, feature):
 
 
 @commands.command('reboot')
-@click.argument('ip_address', required=1)
-def reboot(ip_address):
+@click.argument('host', required=1)
+def reboot(host):
     """Reboot a Google device."""
     import googledevices.cli.commands.reboot as command
-    command.reboot(LOOP, ip_address)
+    command.reboot(host, LOOP)
 
 
 @commands.command('googlewifi-info')
-@click.argument('ip_address', required=0)
-def get_wifi_info(ip_address):
-    """Reboot a Google device."""
+@click.argument('host', required=0)
+def get_wifi_info(host):
+    """Get information about google wifi."""
     import googledevices.cli.commands.googlewifi as command
-    command.get_wifi_info(LOOP, ip_address)
+    command.get_wifi_info(host, LOOP)
 
 
-@commands.command('googlewifi-devices')
-@click.argument('ip_address', required=0)
+@commands.command('googlewifi-clients')
+@click.argument('host', required=0)
 @click.option('--show', '-S', type=str, help="List only 'mac' or 'ip'")
-def get_wifi_devices(ip_address, show=None):
-    """Reboot a Google device."""
+def get_wifi_clients(host, show=None):
+    """Get devices from google wifi."""
     import googledevices.cli.commands.googlewifi as command
-    command.get_wifi_devices(LOOP, ip_address, show)
+    command.get_wifi_clients(host, LOOP, show)
 
 
 @commands.command('info')
@@ -79,24 +79,24 @@ def info(system):
 
 
 @commands.command('debug')
-@click.argument('ip_address', required=1)
+@click.argument('host', required=1)
 @click.option('--test', '-T', type=str, required=1)
 @click.option('--timeout', type=int)
-def debug(ip_address, test, timeout=30):
+def debug(host, test, timeout=30):
     """Get debug information."""
     import googledevices.cli.commands.debug as command
-    command.debug(LOOP, ip_address, test, timeout)
+    command.debug(host, LOOP, test, timeout)
 
 
 @commands.command('alarm-volume')
-@click.argument('ip_address', required=1)
+@click.argument('host', required=1)
 @click.option('--mode', '-M', type=str, required=1, help="'get' or 'set'")
 @click.option('--volume', '-V', type=int)
-def alarm_volume(ip_address, mode, volume=None):
+def alarm_volume(host, mode, volume=None):
     """Get or set alarm volume."""
     import googledevices.cli.commands.alarm_volume as command
-    command.alarm_volume(LOOP, ip_address, mode, volume)
+    command.alarm_volume(host, LOOP, mode, volume)
 
 
-LOOP = get_event_loop()
+LOOP = gdh_loop()
 CLI = click.CommandCollection(sources=[commands])

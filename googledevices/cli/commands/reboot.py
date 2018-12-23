@@ -1,14 +1,14 @@
 """Reboot a Google device."""
-from aiohttp import ClientSession
+from googledevices.helpers import gdh_session
 
 
-def reboot(loop, ip_address):
+def reboot(host, loop):
     """Reboot a Google device."""
-    from googledevices.api.device_settings import DeviceSettings
-
-    async def reboot_device():
+    async def reboot_device(host, loop):
         """Reboot a Google Home unit."""
-        async with ClientSession() as session:
-            googledevices = DeviceSettings(loop, session, ip_address)
+        from googledevices.api.cast.settings import Settings
+
+        async with gdh_session() as session:
+            googledevices = Settings(host, loop, session)
             await googledevices.reboot()
-    loop.run_until_complete(reboot_device())
+    loop.run_until_complete(reboot_device(host, loop))

@@ -1,9 +1,4 @@
-"""
-Convert/restructure data sets.
-
-This code is released under the terms of the MIT license. See the LICENSE
-file for more details.
-"""
+"""Convert/restructure data sets."""
 
 
 def get_device_type(device_type=0):
@@ -19,3 +14,9 @@ def get_device_type(device_type=0):
     else:
         return_value = device_types[0]
     return return_value
+
+
+def format_json(source):
+    """Structure json."""
+    from json import dumps
+    return dumps(source, indent=4, sort_keys=True)

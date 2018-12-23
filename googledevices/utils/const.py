@@ -1,23 +1,38 @@
 """Constants."""
-API = 'http://{ip}:8008{endpoint}'
+###############################################################################
+# General
+###############################################################################
+API = 'http://{host}{port}/{endpoint}'
 DEFAULT_DEVICE_NAME = 'GoogleDevice'
-GOOGLE_WIFI_API = 'http://{ip}/api/v1/{endpoint}'
 HEADERS = {
     'Content-Type': 'application/json',
     'Host': 'localhost'
     }
-PORT = 8008
-WIFI_HOSTS = ['192.168.86.1',
-              '192.168.11.1',
-              '192.168.2.1',
-              '192.168.1.1',
-              'testwifi.here',
-              'onhub.here']
+PLATFORMS = ['cast', 'wifi']
 
-# Setup information:
-VERSION = '0.7.0'
+###############################################################################
+# Cast API
+###############################################################################
+CASTPORT = 8008
+
+###############################################################################
+# WiFI API
+###############################################################################
+WIFIAPIPREFIX = 'api/v1/'
+WIFIPORT = None
+WIFIHOSTS = ['192.168.86.1',
+             '192.168.11.1',
+             '192.168.2.1',
+             '192.168.1.1',
+             'testwifi.here',
+             'onhub.here']
+
+###############################################################################
+# Setup information
+###############################################################################
+VERSION = '1.0.0'
 NAME = 'googledevices'
-DESCRIPTION = 'Get information form, and control various Google devices.'
+DESCRIPTION = 'Get information from, and control various Google devices.'
 URLS = {
     'github': 'https://github.com/ludeeus/googledevices',
     'pypi': 'https://pypi.org/project/googledevices'

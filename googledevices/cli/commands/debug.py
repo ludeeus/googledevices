@@ -1,15 +1,15 @@
 """Get debug information."""
-from aiohttp import ClientSession
+from googledevices.helpers import gdh_session
 
 
-def debug(loop, ip_address, test, timeout):
+def debug(host, loop, test, timeout):
     """Get debug information."""
     from googledevices.utils.debug import Debug
 
     async def connectivity():
         """Test connectivity a Google Home unit."""
-        async with ClientSession() as session:
-            googledevices = Debug(loop, session, ip_address)
+        async with gdh_session():
+            googledevices = Debug(host)
             await googledevices.connectivity(timeout)
 
     if test == 'connectivity':
