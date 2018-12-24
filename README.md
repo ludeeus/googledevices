@@ -14,7 +14,7 @@ pip install googledevices
 For documentation please visit the [documentation website][docs].  
 The documentation _might_ not be "good" but it's there.
 
-[docs]: https://ludeeus.github.io/googledevices/docs
+[docs]: https://ludeeus.github.io/googledevices/
 [travis]: https://travis-ci.com/ludeeus/googledevices
 [travis_status]: https://travis-ci.com/ludeeus/googledevices.svg?branch=master
 [pypi]:https://pypi.org/project/googledevices/
