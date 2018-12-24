@@ -14,11 +14,6 @@ class Cast(object):
         self.loop = loop
         self.session = session
 
-    async def alarm(self):
-        """Return cast Alarm connector."""
-        from googledevices.api.cast.alarm import Alarm
-        return Alarm(self.host, self.loop, self.session)
-
     async def bluetooth(self):
         """Return cast Bluetooth connector."""
         from googledevices.api.cast.bluetooth import Bluetooth
@@ -33,6 +28,16 @@ class Cast(object):
         """Return cast DeviceSettings connector."""
         from googledevices.api.cast.settings import Settings
         return Settings(self.host, self.loop, self.session)
+
+    async def assistant(self):
+        """Return cast DeviceSettings connector."""
+        from googledevices.api.cast.assistant import Assistant
+        return Assistant(self.host, self.loop, self.session)
+
+    async def wifi(self):
+        """Return cast DeviceSettings connector."""
+        from googledevices.api.cast.wifi import Wifi as CastWifi
+        return CastWifi(self.host, self.loop, self.session)
 
 
 class Wifi(object):

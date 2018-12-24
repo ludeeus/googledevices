@@ -1,6 +1,6 @@
 """Example usage of googledevices."""
 from googledevices.helpers import gdh_session
-from googledevices.api.cast.alarm import Alarm
+from googledevices.api.cast.assistant import Assistant
 
 
 def alarm_volume(host, loop, mode, volume=None):
@@ -8,13 +8,13 @@ def alarm_volume(host, loop, mode, volume=None):
     async def set_alarm_volume():
         """Get alarms and timers from GH."""
         async with gdh_session() as session:
-            googledevices = Alarm(host, loop, session)
+            googledevices = Assistant(host, loop, session)
             await googledevices.set_alarm_volume(volume)
 
     async def get_alarm_volume():
         """Get alarms and timers from GH."""
         async with gdh_session() as session:
-            googledevices = Alarm(host, loop, session)
+            googledevices = Assistant(host, loop, session)
             await googledevices.get_alarm_volume()
             print("Volume:", googledevices.alarm_volume)
 

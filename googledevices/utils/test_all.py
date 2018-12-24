@@ -13,22 +13,49 @@ async def test_all():  # pylint: disable=R0915
     """Test all."""
     print("Testing Cast.")
 
-    print("Testing Cast - Alarm.")
+    print("Testing Cast - Assistant.")
 
     async with gdh_session() as session:
-        print("Testing Cast - Alarm - get_alarms")
-        test_class = await Cast(TEST_HOST_CAST, LOOP, session).alarm()
+        print("Testing Cast - Assistant - get_alarms")
+        test_class = await Cast(TEST_HOST_CAST, LOOP, session).assistant()
         test = await test_class.get_alarms()
         print(format_json(test))
     async with gdh_session() as session:
-        print("Testing Cast - Alarm - set_alarm_volume")
-        test_class = await Cast(TEST_HOST_CAST, LOOP, session).alarm()
+        print("Testing Cast - Assistant - set_alarm_volume")
+        test_class = await Cast(TEST_HOST_CAST, LOOP, session).assistant()
         test = await test_class.set_alarm_volume(0.6)
         print(format_json(test))
     async with gdh_session() as session:
-        print("Testing Cast - Alarm - get_alarm_volume")
-        test_class = await Cast(TEST_HOST_CAST, LOOP, session).alarm()
+        print("Testing Cast - Assistant - get_alarm_volume")
+        test_class = await Cast(TEST_HOST_CAST, LOOP, session).assistant()
         test = await test_class.get_alarm_volume()
+        print(format_json(test))
+    async with gdh_session() as session:
+        print("Testing Cast - Assistant - set_night_mode_params")
+        test_class = await Cast(TEST_HOST_CAST, LOOP, session).assistant()
+        data = {}
+        test = await test_class.set_night_mode_params(data)
+        print(format_json(test))
+    async with gdh_session() as session:
+        print("Testing Cast - Assistant - notifications_enabled")
+        test_class = await Cast(TEST_HOST_CAST, LOOP, session).assistant()
+        test = await test_class.notifications_enabled()
+        print(format_json(test))
+    async with gdh_session() as session:
+        print("Testing Cast - Assistant - set_accessibility")
+        test_class = await Cast(TEST_HOST_CAST, LOOP, session).assistant()
+        test = await test_class.set_accessibility()
+        print(format_json(test))
+    async with gdh_session() as session:
+        print("Testing Cast - Assistant - delete_alarms")
+        test_class = await Cast(TEST_HOST_CAST, LOOP, session).assistant()
+        data = []
+        test = await test_class.delete_alarms(data)
+        print(format_json(test))
+    async with gdh_session() as session:
+        print("Testing Cast - Assistant - set_equalizer")
+        test_class = await Cast(TEST_HOST_CAST, LOOP, session).assistant()
+        test = await test_class.set_equalizer()
         print(format_json(test))
 
     print("Testing Cast - Bluetooth.")
@@ -55,6 +82,21 @@ async def test_all():  # pylint: disable=R0915
         test_class = await Cast(TEST_HOST_CAST, LOOP, session).bluetooth()
         test = await test_class.get_scan_result()
         print(format_json(test))
+    async with gdh_session() as session:
+        print("Testing Cast - Bluetooth - get_paired_devices")
+        test_class = await Cast(TEST_HOST_CAST, LOOP, session).bluetooth()
+        test = await test_class.get_paired_devices()
+        print(format_json(test))
+    async with gdh_session() as session:
+        print("Testing Cast - Bluetooth - pair_with_mac")
+        test_class = await Cast(TEST_HOST_CAST, LOOP, session).bluetooth()
+        test = await test_class.pair_with_mac("AA:BB:CC:DD:EE:FF")
+        print(format_json(test))
+    async with gdh_session() as session:
+        print("Testing Cast - Bluetooth - forget_paired_device")
+        test_class = await Cast(TEST_HOST_CAST, LOOP, session).bluetooth()
+        test = await test_class.forget_paired_device("AA:BB:CC:DD:EE:FF")
+        print(format_json(test))
 
     print("Testing Cast - Info.")
 
@@ -62,6 +104,56 @@ async def test_all():  # pylint: disable=R0915
         print("Testing Cast - Info - get_device_info")
         test_class = await Cast(TEST_HOST_CAST, LOOP, session).info()
         test = await test_class.get_device_info()
+        print(format_json(test))
+    async with gdh_session() as session:
+        print("Testing Cast - Info - get_offer")
+        test_class = await Cast(TEST_HOST_CAST, LOOP, session).info()
+        test = await test_class.get_offer()
+        print(format_json(test))
+    async with gdh_session() as session:
+        print("Testing Cast - Info - get_timezones")
+        test_class = await Cast(TEST_HOST_CAST, LOOP, session).info()
+        test = await test_class.get_timezones()
+        print(format_json(test))
+    async with gdh_session() as session:
+        print("Testing Cast - Info - get_locales")
+        test_class = await Cast(TEST_HOST_CAST, LOOP, session).info()
+        test = await test_class.get_locales()
+        print(format_json(test))
+    async with gdh_session() as session:
+        print("Testing Cast - Info - speedtest")
+        test_class = await Cast(TEST_HOST_CAST, LOOP, session).info()
+        test = await test_class.speedtest()
+        print(format_json(test))
+    async with gdh_session() as session:
+        print("Testing Cast - Info - get_app_device_id")
+        test_class = await Cast(TEST_HOST_CAST, LOOP, session).info()
+        test = await test_class.get_app_device_id()
+        print(format_json(test))
+
+    print("Testing Cast - Wifi.")
+
+    async with gdh_session() as session:
+        print("Testing Cast - Wifi - get_configured_networks")
+        test_class = await Cast(TEST_HOST_CAST, LOOP, session).wifi()
+        test = await test_class.get_configured_networks()
+        print(format_json(test))
+    async with gdh_session() as session:
+        print("Testing Cast - Wifi - scan_for_wifi")
+        test_class = await Cast(TEST_HOST_CAST, LOOP, session).wifi()
+        test = await test_class.scan_for_wifi()
+        print(format_json(test))
+    async with gdh_session():
+        await gdh_sleep(2)
+    async with gdh_session() as session:
+        print("Testing Cast - Wifi - get_wifi_scan_result")
+        test_class = await Cast(TEST_HOST_CAST, LOOP, session).wifi()
+        test = await test_class.get_wifi_scan_result()
+        print(format_json(test))
+    async with gdh_session() as session:
+        print("Testing Cast - Wifi - forget_network")
+        test_class = await Cast(TEST_HOST_CAST, LOOP, session).wifi()
+        test = await test_class.forget_network(9)
         print(format_json(test))
 
     print("Testing Cast - Settings.")
