@@ -4,10 +4,6 @@
 ###############################################################################
 API = 'http://{host}{port}/{endpoint}'
 DEFAULT_DEVICE_NAME = 'GoogleDevice'
-CAST_HEADERS = {
-    'Content-Type': 'application/json',
-    'User-Agent': 'googledevices'
-    }
 PLATFORMS = ['cast', 'wifi']
 
 TEST_HOST = 'private-9de3a-ghlocalapi.apiary-mock.com'
@@ -17,7 +13,7 @@ TEST_HOST = 'private-9de3a-ghlocalapi.apiary-mock.com'
 ###############################################################################
 CAST_HEADERS = {
     'Content-Type': 'application/json',
-    'Host': 'localhost'
+    'User-Agent': 'googledevices'
     }
 CASTPORT = 8008
 
