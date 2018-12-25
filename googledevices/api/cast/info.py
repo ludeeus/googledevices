@@ -7,11 +7,12 @@ from googledevices.helpers import gdh_request
 class Info(object):  # pylint: disable=R0902
     """A class for device info."""
 
-    def __init__(self, host, loop, session):
+    def __init__(self, host, loop, session, test=False):
         """Initialize the class."""
         self.loop = loop
         self.host = host
         self.session = session
+        self.test = test
         self._name = 'GoogleDevice'
         self._device_info = {}
         self._offer = {}
@@ -22,6 +23,8 @@ class Info(object):  # pylint: disable=R0902
     async def get_device_info(self):
         """Get device information for the unit."""
         endpoint = 'setup/eureka_info'
+        if self.test:
+            endpoint = endpoint + '/root.json'
         params = ("params=version,audio,name,build_info,detail,device_info,"
                   "net,wifi,setup,settings,opt_in,opencast,multizone,proxy,"
                   "night_mode_params,user_eq,room_equalizer&options=detail")
