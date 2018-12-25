@@ -47,15 +47,13 @@ async def gdh_request(host, port=None, endpoint=None, json=True,
     try:
         async with async_timeout.timeout(8, loop=loop):
             if method == 'post':
-                async with session as session:
-                    webrequest = await session.post(url, json=json_data,
-                                                    data=data, params=params,
-                                                    headers=headers)
+                webrequest = await session.post(url, json=json_data,
+                                                data=data, params=params,
+                                                headers=headers)
             else:
-                async with session as session:
-                    webrequest = await session.get(url, json=json_data,
-                                                   data=data, params=params,
-                                                   headers=headers)
+                webrequest = await session.get(url, json=json_data,
+                                               data=data, params=params,
+                                               headers=headers)
             if json:
                 result = await webrequest.json()
             else:
