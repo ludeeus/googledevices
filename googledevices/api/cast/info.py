@@ -1,5 +1,5 @@
 """Get device information for the unit."""
-from googledevices.utils.const import DEFAULT_DEVICE_NAME, CASTPORT, HEADERS
+from googledevices.utils.const import DEFAULT_DEVICE_NAME, CASTPORT, CAST_HEADERS
 import googledevices.utils.log as log
 from googledevices.helpers import gdh_request
 
@@ -7,7 +7,7 @@ from googledevices.helpers import gdh_request
 class Info(object):  # pylint: disable=R0902
     """A class for device info."""
 
-    def __init__(self, host, loop, session, test=False):
+    def __init__(self, host, loop, session, test):
         """Initialize the class."""
         self.loop = loop
         self.host = host
@@ -29,7 +29,7 @@ class Info(object):  # pylint: disable=R0902
         response = await gdh_request(host=self.host, port=self.port,
                                      loop=self.loop, session=self.session,
                                      endpoint=endpoint, params=params,
-                                     headers=HEADERS)
+                                     headers=CAST_HEADERS)
         self._device_info = response
         log.debug(self._device_info)
         return self._device_info
@@ -39,7 +39,7 @@ class Info(object):  # pylint: disable=R0902
         endpoint = 'setup/offer'
         response = await gdh_request(host=self.host, port=self.port,
                                      loop=self.loop, session=self.session,
-                                     endpoint=endpoint, headers=HEADERS)
+                                     endpoint=endpoint, headers=CAST_HEADERS)
         self._offer = response
         log.debug(self._offer)
         return self._offer
@@ -49,7 +49,7 @@ class Info(object):  # pylint: disable=R0902
         endpoint = 'setup/supported_timezones'
         response = await gdh_request(host=self.host, port=self.port,
                                      loop=self.loop, session=self.session,
-                                     endpoint=endpoint, headers=HEADERS)
+                                     endpoint=endpoint, headers=CAST_HEADERS)
         self._timezones = response
         log.debug(self._timezones)
         return self._timezones
@@ -59,7 +59,7 @@ class Info(object):  # pylint: disable=R0902
         endpoint = 'setup/supported_locales'
         response = await gdh_request(host=self.host, port=self.port,
                                      loop=self.loop, session=self.session,
-                                     endpoint=endpoint, headers=HEADERS)
+                                     endpoint=endpoint, headers=CAST_HEADERS)
         self._locales = response
         log.debug(self._locales)
         return self._locales
@@ -72,7 +72,7 @@ class Info(object):  # pylint: disable=R0902
         result = await gdh_request(host=self.host, port=self.port,
                                    endpoint=endpoint, method='post',
                                    loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS)
+                                   json_data=data, headers=CAST_HEADERS)
         return result
 
     async def get_app_device_id(self):
@@ -82,7 +82,7 @@ class Info(object):  # pylint: disable=R0902
         result = await gdh_request(host=self.host, port=self.port,
                                    endpoint=endpoint, method='post',
                                    loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS)
+                                   json_data=data, headers=CAST_HEADERS)
         return result
 
     @property

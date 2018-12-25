@@ -1,17 +1,18 @@
 """Bluetooth handling on Google Home units."""
 from googledevices.helpers import gdh_request
-from googledevices.utils.const import HEADERS, CASTPORT
+from googledevices.utils.const import CAST_HEADERS, CASTPORT
 import googledevices.utils.log as log
 
 
 class Bluetooth(object):
     """A class for Bluetooth scan ."""
 
-    def __init__(self, host, loop, session):
+    def __init__(self, host, loop, session, test):
         """Initialize the class."""
         self.loop = loop
         self.host = host
         self.session = session
+        self.port = None if test else CASTPORT
         self._devices = []
         self._paired_devices = []
         self._status = {}
@@ -19,9 +20,9 @@ class Bluetooth(object):
     async def get_bluetooth_status(self):
         """Get the bluetooth status of the device."""
         endpoint = 'setup/bluetooth/status'
-        response = await gdh_request(host=self.host, port=CASTPORT,
+        response = await gdh_request(host=self.host, port=self.port,
                                      loop=self.loop, session=self.session,
-                                     endpoint=endpoint, headers=HEADERS)
+                                     endpoint=endpoint, headers=CAST_HEADERS)
         self._status = response
         log.debug(self._status)
         return self._status
@@ -29,9 +30,9 @@ class Bluetooth(object):
     async def get_paired_devices(self):
         """Get paired devices."""
         endpoint = 'setup/bluetooth/get_bonded'
-        response = await gdh_request(host=self.host, port=CASTPORT,
+        response = await gdh_request(host=self.host, port=self.port,
                                      loop=self.loop, session=self.session,
-                                     endpoint=endpoint, headers=HEADERS)
+                                     endpoint=endpoint, headers=CAST_HEADERS)
         self._status = response
         log.debug(self._status)
         return self._status
@@ -41,10 +42,10 @@ class Bluetooth(object):
         endpoint = 'setup/bluetooth/bond'
         data = {"bond": False, "mac_address": mac_address}
         returnvalue = False
-        result = await gdh_request(host=self.host, port=CASTPORT,
+        result = await gdh_request(host=self.host, port=self.port,
                                    endpoint=endpoint, method='post',
                                    loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS,
+                                   json_data=data, headers=CAST_HEADERS,
                                    json=False)
         try:
             if result.status == 200:
@@ -59,10 +60,10 @@ class Bluetooth(object):
         endpoint = 'setup/bluetooth/discovery'
         data = {"enable_discovery": True}
         returnvalue = False
-        result = await gdh_request(host=self.host, port=CASTPORT,
+        result = await gdh_request(host=self.host, port=self.port,
                                    endpoint=endpoint, method='post',
                                    loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS,
+                                   json_data=data, headers=CAST_HEADERS,
                                    json=False)
         try:
             if result.status == 200:
@@ -77,10 +78,10 @@ class Bluetooth(object):
         endpoint = 'setup/bluetooth/scan'
         data = {"connect": True, "mac_address": mac_address, "profile": 2}
         returnvalue = False
-        result = await gdh_request(host=self.host, port=CASTPORT,
+        result = await gdh_request(host=self.host, port=self.port,
                                    endpoint=endpoint, method='post',
                                    loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS,
+                                   json_data=data, headers=CAST_HEADERS,
                                    json=False)
         try:
             if result.status == 200:
@@ -95,10 +96,10 @@ class Bluetooth(object):
         endpoint = 'setup/bluetooth/scan'
         data = {"enable": True, "clear_results": True, "timeout": 5}
         returnvalue = False
-        result = await gdh_request(host=self.host, port=CASTPORT,
+        result = await gdh_request(host=self.host, port=self.port,
                                    endpoint=endpoint, method='post',
                                    loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS,
+                                   json_data=data, headers=CAST_HEADERS,
                                    json=False)
         try:
             if result.status == 200:
@@ -111,9 +112,9 @@ class Bluetooth(object):
     async def get_scan_result(self):
         """Scan for bluetooth devices."""
         endpoint = 'setup/bluetooth/scan_results'
-        response = await gdh_request(host=self.host, port=CASTPORT,
+        response = await gdh_request(host=self.host, port=self.port,
                                      loop=self.loop, session=self.session,
-                                     endpoint=endpoint, headers=HEADERS)
+                                     endpoint=endpoint, headers=CAST_HEADERS)
         self._devices = response
         log.debug(self._devices)
         return self._devices

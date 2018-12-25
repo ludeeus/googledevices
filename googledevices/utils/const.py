@@ -4,21 +4,28 @@
 ###############################################################################
 API = 'http://{host}{port}/{endpoint}'
 DEFAULT_DEVICE_NAME = 'GoogleDevice'
-HEADERS = {
-    'Content-Type': 'application/json',
-    'Host': 'localhost'
+CAST_HEADERS = {
+    'Content-Type': 'application/json'
     }
 PLATFORMS = ['cast', 'wifi']
 
 ###############################################################################
 # Cast API
 ###############################################################################
+CAST_HEADERS = {
+    'Content-Type': 'application/json',
+    'Host': 'localhost'
+    }
 CASTPORT = 8008
 
 ###############################################################################
 # WiFI API
 ###############################################################################
 WIFIAPIPREFIX = 'api/v1/'
+WIFI_HEADERS = {
+    'Content-Type': 'application/json',
+    'Host': 'localhost'
+    }
 WIFIPORT = None
 WIFIHOSTS = ['192.168.86.1',
              '192.168.11.1',

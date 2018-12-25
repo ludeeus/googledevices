@@ -1,26 +1,27 @@
 """Wifi handling on Google Home units."""
 from googledevices.helpers import gdh_request
-from googledevices.utils.const import HEADERS, CASTPORT
+from googledevices.utils.const import CAST_HEADERS, CASTPORT
 import googledevices.utils.log as log
 
 
 class Wifi(object):
     """A class for Wifi."""
 
-    def __init__(self, host, loop, session):
+    def __init__(self, host, loop, session, test):
         """Initialize the class."""
         self.loop = loop
         self.host = host
         self.session = session
+        self.port = None if test else CASTPORT
         self._configured_networks = None
         self._nearby_networks = None
 
     async def get_configured_networks(self):
         """Get the configured networks of the device."""
         endpoint = 'setup/configured_networks'
-        response = await gdh_request(host=self.host, port=CASTPORT,
+        response = await gdh_request(host=self.host, port=self.port,
                                      loop=self.loop, session=self.session,
-                                     endpoint=endpoint, headers=HEADERS)
+                                     endpoint=endpoint, headers=CAST_HEADERS)
         self._configured_networks = response
         log.debug(self._configured_networks)
         return self._configured_networks
@@ -28,9 +29,9 @@ class Wifi(object):
     async def get_wifi_scan_result(self):
         """Get the result of a wifi scan."""
         endpoint = 'setup/configured_networks'
-        response = await gdh_request(host=self.host, port=CASTPORT,
+        response = await gdh_request(host=self.host, port=self.port,
                                      loop=self.loop, session=self.session,
-                                     endpoint=endpoint, headers=HEADERS)
+                                     endpoint=endpoint, headers=CAST_HEADERS)
         self._configured_networks = response
         log.debug(self._configured_networks)
         return self._configured_networks
@@ -39,10 +40,10 @@ class Wifi(object):
         """Scan for nearby wifi networks."""
         endpoint = 'setup/scan_wifi'
         returnvalue = False
-        result = await gdh_request(host=self.host, port=CASTPORT,
+        result = await gdh_request(host=self.host, port=self.port,
                                    endpoint=endpoint, method='post',
                                    loop=self.loop, session=self.session,
-                                   headers=HEADERS, json=False)
+                                   headers=CAST_HEADERS, json=False)
         try:
             if result.status == 200:
                 returnvalue = True
@@ -57,10 +58,10 @@ class Wifi(object):
         returnvalue = False
         data = {"wpa_id": int(wpa_id)}
         returnvalue = False
-        result = await gdh_request(host=self.host, port=CASTPORT,
+        result = await gdh_request(host=self.host, port=self.port,
                                    endpoint=endpoint, method='post',
                                    loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS,
+                                   json_data=data, headers=CAST_HEADERS,
                                    json=False)
         try:
             if result.status == 200:

@@ -18,7 +18,7 @@ class Cast(object):
     async def bluetooth(self):
         """Return cast Bluetooth connector."""
         from googledevices.api.cast.bluetooth import Bluetooth
-        return Bluetooth(self.host, self.loop, self.session)
+        return Bluetooth(self.host, self.loop, self.session, self.test)
 
     async def info(self):
         """Return cast DeviceInfo connector."""
@@ -28,17 +28,17 @@ class Cast(object):
     async def settings(self):
         """Return cast DeviceSettings connector."""
         from googledevices.api.cast.settings import Settings
-        return Settings(self.host, self.loop, self.session)
+        return Settings(self.host, self.loop, self.session, self.test)
 
     async def assistant(self):
         """Return cast DeviceSettings connector."""
         from googledevices.api.cast.assistant import Assistant
-        return Assistant(self.host, self.loop, self.session)
+        return Assistant(self.host, self.loop, self.session, self.test)
 
     async def wifi(self):
         """Return cast DeviceSettings connector."""
         from googledevices.api.cast.wifi import Wifi as CastWifi
-        return CastWifi(self.host, self.loop, self.session)
+        return CastWifi(self.host, self.loop, self.session, self.test)
 
 
 class Wifi(object):

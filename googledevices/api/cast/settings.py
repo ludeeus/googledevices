@@ -1,5 +1,5 @@
 """Controll device settings on the unit."""
-from googledevices.utils.const import CASTPORT, HEADERS
+from googledevices.utils.const import CASTPORT, CAST_HEADERS
 from googledevices.helpers import gdh_request
 import googledevices.utils.log as log
 
@@ -7,11 +7,12 @@ import googledevices.utils.log as log
 class Settings(object):
     """A class for device settings."""
 
-    def __init__(self, host, loop, session):
+    def __init__(self, host, loop, session, test):
         """Initialize the class."""
         self.host = host
         self.loop = loop
         self.session = session
+        self.port = None if test else CASTPORT
 
     async def reboot(self, mode='now'):
         """Reboot the device."""
@@ -23,10 +24,10 @@ class Settings(object):
             log.error(log_msg)
             return returnvalue
         data = {'params': mode}
-        result = await gdh_request(host=self.host, port=CASTPORT,
+        result = await gdh_request(host=self.host, port=self.port,
                                    endpoint=endpoint, method='post',
                                    loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS,
+                                   json_data=data, headers=CAST_HEADERS,
                                    json=False)
         try:
             if result.status == 200:
@@ -40,10 +41,10 @@ class Settings(object):
         """Set eureka info."""
         endpoint = 'setup/set_eureka_info'
         returnvalue = False
-        result = await gdh_request(host=self.host, port=CASTPORT,
+        result = await gdh_request(host=self.host, port=self.port,
                                    endpoint=endpoint, method='post',
                                    loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS,
+                                   json_data=data, headers=CAST_HEADERS,
                                    json=False)
         try:
             if result.status == 200:
@@ -59,10 +60,10 @@ class Settings(object):
         value = 1 if active else 2
         data = {'settings': {'control_notifications': value}}
         returnvalue = False
-        result = await gdh_request(host=self.host, port=CASTPORT,
+        result = await gdh_request(host=self.host, port=self.port,
                                    endpoint=endpoint, method='post',
                                    loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS,
+                                   json_data=data, headers=CAST_HEADERS,
                                    json=False)
         try:
             if result.status == 200:
