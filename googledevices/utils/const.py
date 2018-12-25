@@ -5,7 +5,8 @@
 API = 'http://{host}{port}/{endpoint}'
 DEFAULT_DEVICE_NAME = 'GoogleDevice'
 CAST_HEADERS = {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'User-Agent': 'googledevices'
     }
 PLATFORMS = ['cast', 'wifi']
 
@@ -26,7 +27,8 @@ CASTPORT = 8008
 WIFIAPIPREFIX = 'api/v1/'
 WIFI_HEADERS = {
     'Content-Type': 'application/json',
-    'Host': 'localhost'
+    'Host': 'localhost',
+    'User-Agent': 'googledevices'
     }
 WIFIPORT = None
 WIFIHOSTS = ['192.168.86.1',

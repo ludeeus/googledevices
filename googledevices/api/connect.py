@@ -8,7 +8,7 @@ This can connect to all classes in the package.
 class Cast(object):
     """Cast class for ChromeCast and Google Home units."""
 
-    def __init__(self, host=None, loop=None, session=None, test=False):
+    def __init__(self, host, loop=None, session=None, test=False):
         """Initialize the class."""
         self.host = host
         self.loop = loop
