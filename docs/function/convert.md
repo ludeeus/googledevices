@@ -12,7 +12,7 @@
 
 ```python
 # Sample usage
-from googledevices.util.convert import get_device_type
+from googledevices.utils.convert import get_device_type
 print(get_device_type(2))
 ```
 
@@ -20,7 +20,7 @@ print(get_device_type(2))
 
 ```python
 # Sample usage
-from googledevices.util.convert import format_json
+from googledevices.utils.convert import format_json
 json = {"test": "test"}
 print(format_json(json))
 ```
