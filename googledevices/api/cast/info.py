@@ -12,7 +12,7 @@ class Info(object):  # pylint: disable=R0902
         self.loop = loop
         self.host = host
         self.session = session
-        self.test = test
+        self.port = None if test else CASTPORT
         self._name = 'GoogleDevice'
         self._device_info = {}
         self._offer = {}
@@ -23,12 +23,10 @@ class Info(object):  # pylint: disable=R0902
     async def get_device_info(self):
         """Get device information for the unit."""
         endpoint = 'setup/eureka_info'
-        if self.test:
-            endpoint = endpoint + '/root.json'
         params = ("params=version,audio,name,build_info,detail,device_info,"
                   "net,wifi,setup,settings,opt_in,opencast,multizone,proxy,"
                   "night_mode_params,user_eq,room_equalizer&options=detail")
-        response = await gdh_request(host=self.host, port=CASTPORT,
+        response = await gdh_request(host=self.host, port=self.port,
                                      loop=self.loop, session=self.session,
                                      endpoint=endpoint, params=params,
                                      headers=HEADERS)
@@ -39,7 +37,7 @@ class Info(object):  # pylint: disable=R0902
     async def get_offer(self):
         """Get offer token."""
         endpoint = 'setup/offer'
-        response = await gdh_request(host=self.host, port=CASTPORT,
+        response = await gdh_request(host=self.host, port=self.port,
                                      loop=self.loop, session=self.session,
                                      endpoint=endpoint, headers=HEADERS)
         self._offer = response
@@ -49,7 +47,7 @@ class Info(object):  # pylint: disable=R0902
     async def get_timezones(self):
         """Get supported timezones."""
         endpoint = 'setup/supported_timezones'
-        response = await gdh_request(host=self.host, port=CASTPORT,
+        response = await gdh_request(host=self.host, port=self.port,
                                      loop=self.loop, session=self.session,
                                      endpoint=endpoint, headers=HEADERS)
         self._timezones = response
@@ -59,7 +57,7 @@ class Info(object):  # pylint: disable=R0902
     async def get_locales(self):
         """Get supported locales."""
         endpoint = 'setup/supported_locales'
-        response = await gdh_request(host=self.host, port=CASTPORT,
+        response = await gdh_request(host=self.host, port=self.port,
                                      loop=self.loop, session=self.session,
                                      endpoint=endpoint, headers=HEADERS)
         self._locales = response
@@ -71,7 +69,7 @@ class Info(object):  # pylint: disable=R0902
         endpoint = 'setup/test_internet_download_speed'
         url = "https://storage.googleapis.com/reliability-speedtest/random.txt"
         data = {"url": url}
-        result = await gdh_request(host=self.host, port=CASTPORT,
+        result = await gdh_request(host=self.host, port=self.port,
                                    endpoint=endpoint, method='post',
                                    loop=self.loop, session=self.session,
                                    json_data=data, headers=HEADERS)
@@ -81,7 +79,7 @@ class Info(object):  # pylint: disable=R0902
         """Run speedtest."""
         endpoint = 'setup/get_app_device_id'
         data = {"app_id": "E8C28D3C"}
-        result = await gdh_request(host=self.host, port=CASTPORT,
+        result = await gdh_request(host=self.host, port=self.port,
                                    endpoint=endpoint, method='post',
                                    loop=self.loop, session=self.session,
                                    json_data=data, headers=HEADERS)
