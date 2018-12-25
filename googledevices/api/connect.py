@@ -8,11 +8,12 @@ This can connect to all classes in the package.
 class Cast(object):
     """Cast class for ChromeCast and Google Home units."""
 
-    def __init__(self, host=None, loop=None, session=None):
+    def __init__(self, host=None, loop=None, session=None, test=False):
         """Initialize the class."""
         self.host = host
         self.loop = loop
         self.session = session
+        self.test = test
 
     async def bluetooth(self):
         """Return cast Bluetooth connector."""
@@ -22,7 +23,7 @@ class Cast(object):
     async def info(self):
         """Return cast DeviceInfo connector."""
         from googledevices.api.cast.info import Info
-        return Info(self.host, self.loop, self.session)
+        return Info(self.host, self.loop, self.session, self.test)
 
     async def settings(self):
         """Return cast DeviceSettings connector."""
