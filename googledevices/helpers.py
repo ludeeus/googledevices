@@ -59,12 +59,15 @@ async def gdh_request(host, port=None, endpoint=None, json=True,
             else:
                 result = webrequest
     except (TypeError, KeyError, IndexError) as error:
-        msg = "Error parsing information - {}".format(error)
-        log.error(msg)
-    except (asyncio.TimeoutError, aiohttp.ClientError, gaierror,
-            asyncio.CancelledError) as error:
-        msg = "{} - {}".format(url, error)
-        log.error(msg)
+        log.error("Error parsing information - {}".format(error))
+    except asyncio.TimeoutError:
+        log.error("Timeout contacting {}".format(url))
+    except asyncio.CancelledError:
+        log.error("Cancellation error contacting {}".format(url))
+    except aiohttp.ClientError as error:
+        log.error("ClientError contacting {} - {}".format(url, error))
+    except gaierror as error:
+        log.error("I/O error contacting {} - {}".format(url, error))
     except Exception as error:  # pylint: disable=W0703
-        log.error(error)
+        log.error("Unexpected error contacting {} - {}".format(url, error))
     return result
