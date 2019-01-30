@@ -91,7 +91,7 @@ def debug(host, test, timeout=30):
 @commands.command('alarm-volume')
 @click.argument('host', required=1)
 @click.option('--mode', '-M', type=str, required=1, help="'get' or 'set'")
-@click.option('--volume', '-V', type=int)
+@click.option('--volume', '-V', type=float)
 def alarm_volume(host, mode, volume=None):
     """Get or set alarm volume."""
     import googledevices.cli.commands.alarm_volume as command
