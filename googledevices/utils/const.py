@@ -30,7 +30,7 @@ WIFIHOSTS = ['192.168.86.1',
 ###############################################################################
 # Setup information
 ###############################################################################
-VERSION = '1.0.2'
+VERSION = '1.0.3'
 NAME = 'googledevices'
 DESCRIPTION = 'Get information from, and control various Google devices.'
 URLS = {
