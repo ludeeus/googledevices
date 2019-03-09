@@ -18,34 +18,50 @@ class Bluetooth(object):
 
     async def get_bluetooth_status(self):
         """Get the bluetooth status of the device."""
-        endpoint = 'setup/bluetooth/status'
-        response = await gdh_request(host=self.host, port=CASTPORT,
-                                     loop=self.loop, session=self.session,
-                                     endpoint=endpoint, headers=HEADERS)
+        endpoint = "setup/bluetooth/status"
+        response = await gdh_request(
+            host=self.host,
+            port=CASTPORT,
+            loop=self.loop,
+            session=self.session,
+            endpoint=endpoint,
+            headers=HEADERS,
+        )
         self._status = response
         log.debug(self._status)
         return self._status
 
     async def get_paired_devices(self):
         """Get paired devices."""
-        endpoint = 'setup/bluetooth/get_bonded'
-        response = await gdh_request(host=self.host, port=CASTPORT,
-                                     loop=self.loop, session=self.session,
-                                     endpoint=endpoint, headers=HEADERS)
+        endpoint = "setup/bluetooth/get_bonded"
+        response = await gdh_request(
+            host=self.host,
+            port=CASTPORT,
+            loop=self.loop,
+            session=self.session,
+            endpoint=endpoint,
+            headers=HEADERS,
+        )
         self._status = response
         log.debug(self._status)
         return self._status
 
     async def forget_paired_device(self, mac_address):
         """Forget a paired device."""
-        endpoint = 'setup/bluetooth/bond'
+        endpoint = "setup/bluetooth/bond"
         data = {"bond": False, "mac_address": mac_address}
         returnvalue = False
-        result = await gdh_request(host=self.host, port=CASTPORT,
-                                   endpoint=endpoint, method='post',
-                                   loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS,
-                                   json=False)
+        result = await gdh_request(
+            host=self.host,
+            port=CASTPORT,
+            endpoint=endpoint,
+            method="post",
+            loop=self.loop,
+            session=self.session,
+            json_data=data,
+            headers=HEADERS,
+            json=False,
+        )
         try:
             if result.status == 200:
                 returnvalue = True
@@ -56,14 +72,20 @@ class Bluetooth(object):
 
     async def set_discovery_enabled(self):
         """Enable bluetooth discoverablility."""
-        endpoint = 'setup/bluetooth/discovery'
+        endpoint = "setup/bluetooth/discovery"
         data = {"enable_discovery": True}
         returnvalue = False
-        result = await gdh_request(host=self.host, port=CASTPORT,
-                                   endpoint=endpoint, method='post',
-                                   loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS,
-                                   json=False)
+        result = await gdh_request(
+            host=self.host,
+            port=CASTPORT,
+            endpoint=endpoint,
+            method="post",
+            loop=self.loop,
+            session=self.session,
+            json_data=data,
+            headers=HEADERS,
+            json=False,
+        )
         try:
             if result.status == 200:
                 returnvalue = True
@@ -74,14 +96,20 @@ class Bluetooth(object):
 
     async def pair_with_mac(self, mac_address):
         """Pair with bluetooth device."""
-        endpoint = 'setup/bluetooth/scan'
+        endpoint = "setup/bluetooth/scan"
         data = {"connect": True, "mac_address": mac_address, "profile": 2}
         returnvalue = False
-        result = await gdh_request(host=self.host, port=CASTPORT,
-                                   endpoint=endpoint, method='post',
-                                   loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS,
-                                   json=False)
+        result = await gdh_request(
+            host=self.host,
+            port=CASTPORT,
+            endpoint=endpoint,
+            method="post",
+            loop=self.loop,
+            session=self.session,
+            json_data=data,
+            headers=HEADERS,
+            json=False,
+        )
         try:
             if result.status == 200:
                 returnvalue = True
@@ -92,14 +120,20 @@ class Bluetooth(object):
 
     async def scan_for_devices(self):
         """Scan for bluetooth devices."""
-        endpoint = 'setup/bluetooth/scan'
+        endpoint = "setup/bluetooth/scan"
         data = {"enable": True, "clear_results": True, "timeout": 5}
         returnvalue = False
-        result = await gdh_request(host=self.host, port=CASTPORT,
-                                   endpoint=endpoint, method='post',
-                                   loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS,
-                                   json=False)
+        result = await gdh_request(
+            host=self.host,
+            port=CASTPORT,
+            endpoint=endpoint,
+            method="post",
+            loop=self.loop,
+            session=self.session,
+            json_data=data,
+            headers=HEADERS,
+            json=False,
+        )
         try:
             if result.status == 200:
                 returnvalue = True
@@ -110,10 +144,15 @@ class Bluetooth(object):
 
     async def get_scan_result(self):
         """Scan for bluetooth devices."""
-        endpoint = 'setup/bluetooth/scan_results'
-        response = await gdh_request(host=self.host, port=CASTPORT,
-                                     loop=self.loop, session=self.session,
-                                     endpoint=endpoint, headers=HEADERS)
+        endpoint = "setup/bluetooth/scan_results"
+        response = await gdh_request(
+            host=self.host,
+            port=CASTPORT,
+            loop=self.loop,
+            session=self.session,
+            endpoint=endpoint,
+            headers=HEADERS,
+        )
         self._devices = response
         log.debug(self._devices)
         return self._devices

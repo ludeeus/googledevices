@@ -12,5 +12,5 @@ def debug(host, loop, test, timeout):
             googledevices = Debug(host)
             await googledevices.connectivity(timeout)
 
-    if test == 'connectivity':
+    if test == "connectivity":
         loop.run_until_complete(connectivity())

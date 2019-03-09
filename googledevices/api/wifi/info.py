@@ -11,7 +11,7 @@ class Info(object):
         """Initialize the class."""
         self.session = session
         self.loop = loop
-        self.endpoint = WIFIAPIPREFIX + 'status'
+        self.endpoint = WIFIAPIPREFIX + "status"
         self.host = host
         self._wifi_host = None
         self._wifi_info = {}
@@ -23,14 +23,14 @@ class Info(object):
             self._wifi_host = self.host
         else:
             import async_timeout
+
             for host in WIFIHOSTS:
                 try:
                     if self.loop is None:
                         self.loop = gdh_loop()
                     if self.session is None:
                         self.session = gdh_session()
-                    url = API.format(host=host, port='',
-                                     endpoint=self.endpoint)
+                    url = API.format(host=host, port="", endpoint=self.endpoint)
                     async with async_timeout.timeout(5, loop=self.loop):
                         await self.session.get(url)
                         self._wifi_host = host
@@ -45,10 +45,12 @@ class Info(object):
         if self.wifi_host is None:
             await self.get_host()
         try:
-            response = await gdh_request(host=self.wifi_host,
-                                         endpoint=self.endpoint,
-                                         session=self.session,
-                                         loop=self.loop)
+            response = await gdh_request(
+                host=self.wifi_host,
+                endpoint=self.endpoint,
+                session=self.session,
+                loop=self.loop,
+            )
             self._wifi_info = response
         # pylint: disable=W0703
         except Exception as error:  # pylint: disable=W0703

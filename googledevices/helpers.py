@@ -7,24 +7,37 @@ All methods are prefixed with 'gdh_' for (GoogleDevicesHelpers).
 def gdh_loop():
     """Asyncio loop."""
     from asyncio import get_event_loop
+
     return get_event_loop()
 
 
 def gdh_session():
     """Aiohttp clientsession."""
     from aiohttp import ClientSession
+
     return ClientSession()
 
 
 async def gdh_sleep(seconds=5):
     """Asyncio sleep."""
     from asyncio import sleep
+
     await sleep(seconds)
 
 
-async def gdh_request(host, port=None, endpoint=None, json=True,
-                      session=None, loop=None, headers=None,
-                      data=None, json_data=None, params=None, method='get'):
+async def gdh_request(
+    host,
+    port=None,
+    endpoint=None,
+    json=True,
+    session=None,
+    loop=None,
+    headers=None,
+    data=None,
+    json_data=None,
+    params=None,
+    method="get",
+):
     """Web request."""
     import asyncio
     import aiohttp
@@ -46,14 +59,14 @@ async def gdh_request(host, port=None, endpoint=None, json=True,
         loop = gdh_loop()
     try:
         async with async_timeout.timeout(8, loop=loop):
-            if method == 'post':
-                webrequest = await session.post(url, json=json_data,
-                                                data=data, params=params,
-                                                headers=headers)
+            if method == "post":
+                webrequest = await session.post(
+                    url, json=json_data, data=data, params=params, headers=headers
+                )
             else:
-                webrequest = await session.get(url, json=json_data,
-                                               data=data, params=params,
-                                               headers=headers)
+                webrequest = await session.get(
+                    url, json=json_data, data=data, params=params, headers=headers
+                )
             if json:
                 result = await webrequest.json()
             else:

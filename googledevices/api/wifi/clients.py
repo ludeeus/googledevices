@@ -22,6 +22,7 @@ class Clients(object):
         import asyncio
         import aiohttp
         from socket import gaierror
+
         self._clients = []
         if self.info.wifi_host is None:
             async with self.session:
@@ -29,25 +30,28 @@ class Clients(object):
         if self.info.wifi_host is None:
             await log.error("Host is 'None', host can not be 'None'")
             return self._clients
-        endpoint = WIFIAPIPREFIX + 'diagnostic-report'
-        url = API.format(host=self.info.wifi_host, port=':80',
-                         endpoint=endpoint)
+        endpoint = WIFIAPIPREFIX + "diagnostic-report"
+        url = API.format(host=self.info.wifi_host, port=":80", endpoint=endpoint)
         try:
             response = requests.request("GET", url)
             all_clients = response.text
-            all_clients = all_clients.split('/proc/net/arp')[1]
-            all_clients = all_clients.split('/proc/slabinfo')[0]
+            all_clients = all_clients.split("/proc/net/arp")[1]
+            all_clients = all_clients.split("/proc/slabinfo")[0]
             all_clients = all_clients.splitlines()
             for device in all_clients[1:-2]:
                 host = device.split()[0]
                 mac = device.split()[3]
-                info = {'ip': host, 'mac': mac}
+                info = {"ip": host, "mac": mac}
                 self._clients.append(info)
         except (TypeError, KeyError, IndexError) as error:
             msg = "Error parsing information - {}".format(error)
             log.error(msg)
-        except (asyncio.TimeoutError, aiohttp.ClientError, gaierror,
-                asyncio.CancelledError) as error:
+        except (
+            asyncio.TimeoutError,
+            aiohttp.ClientError,
+            gaierror,
+            asyncio.CancelledError,
+        ) as error:
             msg = "{} - {}".format(url, error)
             log.error(msg)
         except Exception as error:  # pylint: disable=W0703

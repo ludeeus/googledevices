@@ -17,32 +17,48 @@ class Wifi(object):
 
     async def get_configured_networks(self):
         """Get the configured networks of the device."""
-        endpoint = 'setup/configured_networks'
-        response = await gdh_request(host=self.host, port=CASTPORT,
-                                     loop=self.loop, session=self.session,
-                                     endpoint=endpoint, headers=HEADERS)
+        endpoint = "setup/configured_networks"
+        response = await gdh_request(
+            host=self.host,
+            port=CASTPORT,
+            loop=self.loop,
+            session=self.session,
+            endpoint=endpoint,
+            headers=HEADERS,
+        )
         self._configured_networks = response
         log.debug(self._configured_networks)
         return self._configured_networks
 
     async def get_wifi_scan_result(self):
         """Get the result of a wifi scan."""
-        endpoint = 'setup/configured_networks'
-        response = await gdh_request(host=self.host, port=CASTPORT,
-                                     loop=self.loop, session=self.session,
-                                     endpoint=endpoint, headers=HEADERS)
+        endpoint = "setup/configured_networks"
+        response = await gdh_request(
+            host=self.host,
+            port=CASTPORT,
+            loop=self.loop,
+            session=self.session,
+            endpoint=endpoint,
+            headers=HEADERS,
+        )
         self._configured_networks = response
         log.debug(self._configured_networks)
         return self._configured_networks
 
     async def scan_for_wifi(self):
         """Scan for nearby wifi networks."""
-        endpoint = 'setup/scan_wifi'
+        endpoint = "setup/scan_wifi"
         returnvalue = False
-        result = await gdh_request(host=self.host, port=CASTPORT,
-                                   endpoint=endpoint, method='post',
-                                   loop=self.loop, session=self.session,
-                                   headers=HEADERS, json=False)
+        result = await gdh_request(
+            host=self.host,
+            port=CASTPORT,
+            endpoint=endpoint,
+            method="post",
+            loop=self.loop,
+            session=self.session,
+            headers=HEADERS,
+            json=False,
+        )
         try:
             if result.status == 200:
                 returnvalue = True
@@ -53,15 +69,21 @@ class Wifi(object):
 
     async def forget_network(self, wpa_id):
         """Forget a network."""
-        endpoint = 'setup/forget_wifi'
+        endpoint = "setup/forget_wifi"
         returnvalue = False
         data = {"wpa_id": int(wpa_id)}
         returnvalue = False
-        result = await gdh_request(host=self.host, port=CASTPORT,
-                                   endpoint=endpoint, method='post',
-                                   loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS,
-                                   json=False)
+        result = await gdh_request(
+            host=self.host,
+            port=CASTPORT,
+            endpoint=endpoint,
+            method="post",
+            loop=self.loop,
+            session=self.session,
+            json_data=data,
+            headers=HEADERS,
+            json=False,
+        )
         try:
             if result.status == 200:
                 returnvalue = True

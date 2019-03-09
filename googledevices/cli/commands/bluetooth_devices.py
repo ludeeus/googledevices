@@ -15,4 +15,5 @@ def get_bluetooth_devices(host, loop):
             await gdh_sleep()
             await bluetooth.get_scan_result()
             print(format_json(bluetooth.devices))
+
     loop.run_until_complete(bluetooth_scan())

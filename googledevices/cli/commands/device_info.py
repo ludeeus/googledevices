@@ -13,4 +13,5 @@ def device_info(host, loop):
             googledevices = Info(host, loop, session)
             await googledevices.get_device_info()
             print(format_json(googledevices.device_info))
+
     loop.run_until_complete(get_device_info())

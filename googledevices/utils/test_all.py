@@ -4,8 +4,8 @@ from googledevices.helpers import gdh_session, gdh_loop, gdh_sleep
 from googledevices.utils.convert import format_json
 
 
-TEST_HOST_CAST = '192.168.2.241'
-TEST_HOST_WIFI = '192.168.2.1'
+TEST_HOST_CAST = "192.168.2.241"
+TEST_HOST_WIFI = "192.168.2.1"
 LOOP = gdh_loop()
 
 
@@ -198,4 +198,6 @@ async def test_all():  # pylint: disable=R0915
         print(format_json(test))
 
         print("TESTS COMPLETE.")
+
+
 LOOP.run_until_complete(test_all())

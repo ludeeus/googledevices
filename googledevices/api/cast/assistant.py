@@ -17,55 +17,85 @@ class Assistant(object):
 
     async def set_night_mode_params(self, data):
         """Set night mode options."""
-        endpoint = 'setup/assistant/set_night_mode_params'
-        result = await gdh_request(host=self.host, port=CASTPORT,
-                                   endpoint=endpoint, method='post',
-                                   loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS)
+        endpoint = "setup/assistant/set_night_mode_params"
+        result = await gdh_request(
+            host=self.host,
+            port=CASTPORT,
+            endpoint=endpoint,
+            method="post",
+            loop=self.loop,
+            session=self.session,
+            json_data=data,
+            headers=HEADERS,
+        )
         return result
 
     async def notifications_enabled(self, mode=True):
         """Set notifications_enabled True/False."""
-        endpoint = 'setup/assistant/notifications'
+        endpoint = "setup/assistant/notifications"
         data = {"notifications_enabled": mode}
-        result = await gdh_request(host=self.host, port=CASTPORT,
-                                   endpoint=endpoint, method='post',
-                                   loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS)
+        result = await gdh_request(
+            host=self.host,
+            port=CASTPORT,
+            endpoint=endpoint,
+            method="post",
+            loop=self.loop,
+            session=self.session,
+            json_data=data,
+            headers=HEADERS,
+        )
         return result
 
     async def set_accessibility(self, start=True, end=False):
         """Set accessibility True/False."""
-        endpoint = 'setup/assistant/a11y_mode'
+        endpoint = "setup/assistant/a11y_mode"
         data = {"endpoint_enabled": end, "hotword_enabled": start}
-        result = await gdh_request(host=self.host, port=CASTPORT,
-                                   endpoint=endpoint, method='post',
-                                   loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS)
+        result = await gdh_request(
+            host=self.host,
+            port=CASTPORT,
+            endpoint=endpoint,
+            method="post",
+            loop=self.loop,
+            session=self.session,
+            json_data=data,
+            headers=HEADERS,
+        )
         return result
 
     async def delete_alarms(self, data):
         """Delete active alarms and timers."""
-        endpoint = 'setup/assistant/alarms/delete'
-        result = await gdh_request(host=self.host, port=CASTPORT,
-                                   endpoint=endpoint, method='post',
-                                   loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS)
+        endpoint = "setup/assistant/alarms/delete"
+        result = await gdh_request(
+            host=self.host,
+            port=CASTPORT,
+            endpoint=endpoint,
+            method="post",
+            loop=self.loop,
+            session=self.session,
+            json_data=data,
+            headers=HEADERS,
+        )
         return result
 
     async def set_equalizer(self, low_gain=0, high_gain=0):
         """Set equalizer db gain."""
-        endpoint = 'setup/user_eq/set_equalizer'
+        endpoint = "setup/user_eq/set_equalizer"
         returnvalue = False
         data = {
             "low_shelf": {"gain_db": low_gain},
-            "high_shelf": {"gain_db": high_gain}
+            "high_shelf": {"gain_db": high_gain},
         }
-        result = await gdh_request(host=self.host, port=CASTPORT,
-                                   endpoint=endpoint, method='post',
-                                   loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS,
-                                   json=False)
+        result = await gdh_request(
+            host=self.host,
+            port=CASTPORT,
+            endpoint=endpoint,
+            method="post",
+            loop=self.loop,
+            session=self.session,
+            json_data=data,
+            headers=HEADERS,
+            json=False,
+        )
         try:
             if result.status == 200:
                 returnvalue = True
@@ -76,35 +106,51 @@ class Assistant(object):
 
     async def get_alarms(self):
         """Get the alarms from the device."""
-        endpoint = 'setup/assistant/alarms'
-        response = await gdh_request(host=self.host, port=CASTPORT,
-                                     loop=self.loop, session=self.session,
-                                     endpoint=endpoint, headers=HEADERS)
+        endpoint = "setup/assistant/alarms"
+        response = await gdh_request(
+            host=self.host,
+            port=CASTPORT,
+            loop=self.loop,
+            session=self.session,
+            endpoint=endpoint,
+            headers=HEADERS,
+        )
         self._alarms = response
         log.debug(self._alarms)
         return self._alarms
 
     async def get_alarm_volume(self):
         """Get the alarm volume for the device."""
-        endpoint = 'setup/assistant/alarms/volume'
-        response = await gdh_request(host=self.host, port=CASTPORT,
-                                     loop=self.loop, session=self.session,
-                                     endpoint=endpoint, headers=HEADERS,
-                                     method='post')
+        endpoint = "setup/assistant/alarms/volume"
+        response = await gdh_request(
+            host=self.host,
+            port=CASTPORT,
+            loop=self.loop,
+            session=self.session,
+            endpoint=endpoint,
+            headers=HEADERS,
+            method="post",
+        )
         self._alarmvolume = response
         log.debug(self._alarmvolume)
         return self._alarmvolume
 
     async def set_alarm_volume(self, volume):
         """Set the alarm volume for the device."""
-        data = {'volume': volume}
-        endpoint = 'setup/assistant/alarms/volume'
+        data = {"volume": volume}
+        endpoint = "setup/assistant/alarms/volume"
         returnvalue = False
-        result = await gdh_request(host=self.host, port=CASTPORT,
-                                   endpoint=endpoint, method='post',
-                                   loop=self.loop, session=self.session,
-                                   json_data=data, headers=HEADERS,
-                                   json=False)
+        result = await gdh_request(
+            host=self.host,
+            port=CASTPORT,
+            endpoint=endpoint,
+            method="post",
+            loop=self.loop,
+            session=self.session,
+            json_data=data,
+            headers=HEADERS,
+            json=False,
+        )
         try:
             if result.status == 200:
                 returnvalue = True

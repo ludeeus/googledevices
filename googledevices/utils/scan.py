@@ -23,11 +23,11 @@ class NetworkScan(object):
             await googlewifi.get_wifi_info()
         if googlewifi.wifi_host is not None:
             wifi = {
-                'assistant': False,
-                'bluetooth': False,
-                'host': googlewifi.wifi_host,
-                'model': googlewifi.wifi_info.get('system', {}).get('modelId'),
-                'name': 'Google WiFi'
+                "assistant": False,
+                "bluetooth": False,
+                "host": googlewifi.wifi_host,
+                "model": googlewifi.wifi_info.get("system", {}).get("modelId"),
+                "name": "Google WiFi",
             }
             units.append(wifi)
         for host in ipaddress.IPv4Network(iprange):
@@ -44,14 +44,16 @@ class NetworkScan(object):
                     await googledevices.get_device_info()
                 data = googledevices.device_info
                 if data is not None:
-                    info = data.get('device_info', {})
-                    cap = info.get('capabilities', {})
-                    units.append({
-                        'host': host,
-                        'name': data.get('name'),
-                        'model': info.get('model_name'),
-                        'assistant': cap.get('assistant_supported', False),
-                        'bluetooth': cap.get('bluetooth_supported', False)
-                    })
+                    info = data.get("device_info", {})
+                    cap = info.get("capabilities", {})
+                    units.append(
+                        {
+                            "host": host,
+                            "name": data.get("name"),
+                            "model": info.get("model_name"),
+                            "assistant": cap.get("assistant_supported", False),
+                            "bluetooth": cap.get("bluetooth_supported", False),
+                        }
+                    )
             sock.close()
         return units

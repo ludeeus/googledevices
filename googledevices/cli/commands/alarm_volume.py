@@ -5,6 +5,7 @@ from googledevices.api.cast.assistant import Assistant
 
 def alarm_volume(host, loop, mode, volume=None):
     """Handle alarm volume."""
+
     async def set_alarm_volume():
         """Get alarms and timers from GH."""
         async with gdh_session() as session:
@@ -18,7 +19,7 @@ def alarm_volume(host, loop, mode, volume=None):
             await googledevices.get_alarm_volume()
             print("Volume:", googledevices.alarm_volume)
 
-    if mode == 'set':
+    if mode == "set":
         if volume is None:
             print("You need to supply a volume like '--volume 0.8'")
             return
