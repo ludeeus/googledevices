@@ -1,5 +1,5 @@
 """Controll device settings on the unit."""
-from googledevices.utils.const import CASTPORT, HEADERS
+from googledevices.utils.const import CASTSECPORT, HEADERS
 from googledevices.helpers import gdh_request
 import googledevices.utils.log as log
 
@@ -13,7 +13,7 @@ class Settings(object):
         self.loop = loop
         self.session = session
 
-    async def reboot(self, mode="now"):
+    async def reboot(self, token, mode="now"):
         """Reboot the device."""
         endpoint = "setup/reboot"
         supported_modes = ["now", "fdr"]
@@ -24,8 +24,10 @@ class Settings(object):
             return returnvalue
         data = {"params": mode}
         result = await gdh_request(
+            schema="https",
             host=self.host,
-            port=CASTPORT,
+            port=CASTSECPORT,
+            token=token,
             endpoint=endpoint,
             method="post",
             loop=self.loop,
@@ -42,13 +44,15 @@ class Settings(object):
             log.error(msg)
         return returnvalue
 
-    async def set_eureka_info(self, data):
+    async def set_eureka_info(self, token, data):
         """Set eureka info."""
         endpoint = "setup/set_eureka_info"
         returnvalue = False
         result = await gdh_request(
+            schema="https",
             host=self.host,
-            port=CASTPORT,
+            port=CASTSECPORT,
+            token=token,
             endpoint=endpoint,
             method="post",
             loop=self.loop,
@@ -65,15 +69,17 @@ class Settings(object):
             log.error(msg)
         return returnvalue
 
-    async def control_notifications(self, active):
+    async def control_notifications(self, token, active):
         """Set control_notifications option."""
         endpoint = "setup/set_eureka_info"
         value = 1 if active else 2
         data = {"settings": {"control_notifications": value}}
         returnvalue = False
         result = await gdh_request(
+            schema="https",
             host=self.host,
-            port=CASTPORT,
+            port=CASTSECPORT,
+            token=token,
             endpoint=endpoint,
             method="post",
             loop=self.loop,

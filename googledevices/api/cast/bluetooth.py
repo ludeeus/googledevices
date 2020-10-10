@@ -1,6 +1,6 @@
 """Bluetooth handling on Google Home units."""
 from googledevices.helpers import gdh_request
-from googledevices.utils.const import HEADERS, CASTPORT
+from googledevices.utils.const import HEADERS, CASTSECPORT
 import googledevices.utils.log as log
 
 
@@ -16,12 +16,14 @@ class Bluetooth(object):
         self._paired_devices = []
         self._status = {}
 
-    async def get_bluetooth_status(self):
+    async def get_bluetooth_status(self, token):
         """Get the bluetooth status of the device."""
         endpoint = "setup/bluetooth/status"
         response = await gdh_request(
+            schema="https",
             host=self.host,
-            port=CASTPORT,
+            port=CASTSECPORT,
+            token=token,
             loop=self.loop,
             session=self.session,
             endpoint=endpoint,
@@ -31,12 +33,14 @@ class Bluetooth(object):
         log.debug(self._status)
         return self._status
 
-    async def get_paired_devices(self):
+    async def get_paired_devices(self, token):
         """Get paired devices."""
         endpoint = "setup/bluetooth/get_bonded"
         response = await gdh_request(
+            schema="https",
             host=self.host,
-            port=CASTPORT,
+            port=CASTSECPORT,
+            token=token,
             loop=self.loop,
             session=self.session,
             endpoint=endpoint,
@@ -46,14 +50,16 @@ class Bluetooth(object):
         log.debug(self._status)
         return self._status
 
-    async def forget_paired_device(self, mac_address):
+    async def forget_paired_device(self, token, mac_address):
         """Forget a paired device."""
         endpoint = "setup/bluetooth/bond"
         data = {"bond": False, "mac_address": mac_address}
         returnvalue = False
         result = await gdh_request(
+            schema="https",
             host=self.host,
-            port=CASTPORT,
+            port=CASTSECPORT,
+            token=token,
             endpoint=endpoint,
             method="post",
             loop=self.loop,
@@ -70,14 +76,16 @@ class Bluetooth(object):
             log.error(msg)
         return returnvalue
 
-    async def set_discovery_enabled(self):
+    async def set_discovery_enabled(self, token):
         """Enable bluetooth discoverablility."""
         endpoint = "setup/bluetooth/discovery"
         data = {"enable_discovery": True}
         returnvalue = False
         result = await gdh_request(
+            schema="https",
             host=self.host,
-            port=CASTPORT,
+            port=CASTSECPORT,
+            token=token,
             endpoint=endpoint,
             method="post",
             loop=self.loop,
@@ -94,14 +102,16 @@ class Bluetooth(object):
             log.error(msg)
         return returnvalue
 
-    async def pair_with_mac(self, mac_address):
+    async def pair_with_mac(self, token, mac_address):
         """Pair with bluetooth device."""
         endpoint = "setup/bluetooth/scan"
         data = {"connect": True, "mac_address": mac_address, "profile": 2}
         returnvalue = False
         result = await gdh_request(
+            schema="https",
             host=self.host,
-            port=CASTPORT,
+            port=CASTSECPORT,
+            token=token,
             endpoint=endpoint,
             method="post",
             loop=self.loop,
@@ -118,14 +128,16 @@ class Bluetooth(object):
             log.error(msg)
         return returnvalue
 
-    async def scan_for_devices(self):
+    async def scan_for_devices(self, token):
         """Scan for bluetooth devices."""
         endpoint = "setup/bluetooth/scan"
         data = {"enable": True, "clear_results": True, "timeout": 5}
         returnvalue = False
         result = await gdh_request(
+            schema="https",
             host=self.host,
-            port=CASTPORT,
+            port=CASTSECPORT,
+            token=token,
             endpoint=endpoint,
             method="post",
             loop=self.loop,
@@ -142,12 +154,14 @@ class Bluetooth(object):
             log.error(msg)
         return returnvalue
 
-    async def get_scan_result(self):
+    async def get_scan_result(self, token):
         """Scan for bluetooth devices."""
         endpoint = "setup/bluetooth/scan_results"
         response = await gdh_request(
+            schema="https",
             host=self.host,
-            port=CASTPORT,
+            port=CASTSECPORT,
+            token=token,
             loop=self.loop,
             session=self.session,
             endpoint=endpoint,

@@ -1,5 +1,5 @@
 """Get device information for the unit."""
-from googledevices.utils.const import DEFAULT_DEVICE_NAME, CASTPORT, HEADERS
+from googledevices.utils.const import DEFAULT_DEVICE_NAME, CASTPORT, CASTSECPORT, HEADERS
 import googledevices.utils.log as log
 from googledevices.helpers import gdh_request
 
@@ -19,7 +19,7 @@ class Info(object):  # pylint: disable=R0902
         self._locales = []
         self._app_device_id = {}
 
-    async def get_device_info(self):
+    async def get_device_info(self, token = None):
         """Get device information for the unit."""
         endpoint = "setup/eureka_info"
         params = (
@@ -28,11 +28,13 @@ class Info(object):  # pylint: disable=R0902
             "night_mode_params,user_eq,room_equalizer&options=detail"
         )
         response = await gdh_request(
+            schema="https" if token is not None else "http",
             host=self.host,
-            port=CASTPORT,
+            port=CASTSECPORT if token is not None else CASTPORT,
             loop=self.loop,
             session=self.session,
             endpoint=endpoint,
+            token=token,
             params=params,
             headers=HEADERS,
         )
@@ -40,12 +42,14 @@ class Info(object):  # pylint: disable=R0902
         log.debug(self._device_info)
         return self._device_info
 
-    async def get_offer(self):
+    async def get_offer(self, token):
         """Get offer token."""
         endpoint = "setup/offer"
         response = await gdh_request(
+            schema="https",
             host=self.host,
-            port=CASTPORT,
+            port=CASTSECPORT,
+            token=token,
             loop=self.loop,
             session=self.session,
             endpoint=endpoint,
@@ -55,12 +59,14 @@ class Info(object):  # pylint: disable=R0902
         log.debug(self._offer)
         return self._offer
 
-    async def get_timezones(self):
+    async def get_timezones(self, token):
         """Get supported timezones."""
         endpoint = "setup/supported_timezones"
         response = await gdh_request(
+            schema="https",
             host=self.host,
-            port=CASTPORT,
+            port=CASTSECPORT,
+            token=token,
             loop=self.loop,
             session=self.session,
             endpoint=endpoint,
@@ -70,12 +76,14 @@ class Info(object):  # pylint: disable=R0902
         log.debug(self._timezones)
         return self._timezones
 
-    async def get_locales(self):
+    async def get_locales(self, token):
         """Get supported locales."""
         endpoint = "setup/supported_locales"
         response = await gdh_request(
+            schema="https",
             host=self.host,
-            port=CASTPORT,
+            port=CASTSECPORT,
+            token=token,
             loop=self.loop,
             session=self.session,
             endpoint=endpoint,
@@ -85,14 +93,16 @@ class Info(object):  # pylint: disable=R0902
         log.debug(self._locales)
         return self._locales
 
-    async def speedtest(self):
+    async def speedtest(self, token):
         """Run speedtest."""
         endpoint = "setup/test_internet_download_speed"
         url = "https://storage.googleapis.com/reliability-speedtest/random.txt"
         data = {"url": url}
         result = await gdh_request(
+            schema="https",
             host=self.host,
-            port=CASTPORT,
+            port=CASTSECPORT,
+            token=token,
             endpoint=endpoint,
             method="post",
             loop=self.loop,
@@ -102,13 +112,15 @@ class Info(object):  # pylint: disable=R0902
         )
         return result
 
-    async def get_app_device_id(self):
+    async def get_app_device_id(self, token):
         """Run speedtest."""
         endpoint = "setup/get_app_device_id"
         data = {"app_id": "E8C28D3C"}
         result = await gdh_request(
+            schema="https",
             host=self.host,
-            port=CASTPORT,
+            port=CASTSECPORT,
+            token=token,
             endpoint=endpoint,
             method="post",
             loop=self.loop,

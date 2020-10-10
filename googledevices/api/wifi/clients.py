@@ -31,7 +31,7 @@ class Clients(object):
             await log.error("Host is 'None', host can not be 'None'")
             return self._clients
         endpoint = WIFIAPIPREFIX + "diagnostic-report"
-        url = API.format(host=self.info.wifi_host, port=":80", endpoint=endpoint)
+        url = API.format(schema="http", host=self.info.wifi_host, port=":80", endpoint=endpoint)
         try:
             response = requests.request("GET", url)
             all_clients = response.text

@@ -30,7 +30,7 @@ class Info(object):
                         self.loop = gdh_loop()
                     if self.session is None:
                         self.session = gdh_session()
-                    url = API.format(host=host, port="", endpoint=self.endpoint)
+                    url = API.format(schema="http", host=host, port="", endpoint=self.endpoint)
                     async with async_timeout.timeout(5, loop=self.loop):
                         await self.session.get(url)
                         self._wifi_host = host

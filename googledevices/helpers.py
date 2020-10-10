@@ -27,7 +27,9 @@ async def gdh_sleep(seconds=5):
 
 async def gdh_request(
     host,
+    schema=None,
     port=None,
+    token=None,
     endpoint=None,
     json=True,
     session=None,
@@ -46,12 +48,18 @@ async def gdh_request(
     from googledevices.utils.const import API
     import googledevices.utils.log as log
 
+    if schema is None:
+        schema = "http"
     if port is not None:
         port = ":{port}".format(port=port)
     else:
         port = ""
-    url = API.format(host=host, port=port, endpoint=endpoint)
+    url = API.format(schema=schema, host=host, port=port, endpoint=endpoint)
     result = None
+    if token is not None:
+        if headers is None:
+            headers = {}
+        headers["cast-local-authorization-token"] = token
 
     if session is None:
         session = gdh_session()
@@ -61,11 +69,11 @@ async def gdh_request(
         async with async_timeout.timeout(8, loop=loop):
             if method == "post":
                 webrequest = await session.post(
-                    url, json=json_data, data=data, params=params, headers=headers
+                    url, json=json_data, data=data, params=params, headers=headers, ssl=False
                 )
             else:
                 webrequest = await session.get(
-                    url, json=json_data, data=data, params=params, headers=headers
+                    url, json=json_data, data=data, params=params, headers=headers, ssl=False
                 )
             if json:
                 result = await webrequest.json()

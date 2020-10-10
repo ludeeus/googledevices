@@ -1,6 +1,6 @@
 """Wifi handling on Google Home units."""
 from googledevices.helpers import gdh_request
-from googledevices.utils.const import HEADERS, CASTPORT
+from googledevices.utils.const import HEADERS, CASTSECPORT
 import googledevices.utils.log as log
 
 
@@ -15,12 +15,14 @@ class Wifi(object):
         self._configured_networks = None
         self._nearby_networks = None
 
-    async def get_configured_networks(self):
+    async def get_configured_networks(self, token):
         """Get the configured networks of the device."""
         endpoint = "setup/configured_networks"
         response = await gdh_request(
+            schema="https",
             host=self.host,
-            port=CASTPORT,
+            port=CASTSECPORT,
+            token=token,
             loop=self.loop,
             session=self.session,
             endpoint=endpoint,
@@ -30,12 +32,14 @@ class Wifi(object):
         log.debug(self._configured_networks)
         return self._configured_networks
 
-    async def get_wifi_scan_result(self):
+    async def get_wifi_scan_result(self, token):
         """Get the result of a wifi scan."""
         endpoint = "setup/configured_networks"
         response = await gdh_request(
+            schema="https",
             host=self.host,
-            port=CASTPORT,
+            port=CASTSECPORT,
+            token=token,
             loop=self.loop,
             session=self.session,
             endpoint=endpoint,
@@ -45,13 +49,15 @@ class Wifi(object):
         log.debug(self._configured_networks)
         return self._configured_networks
 
-    async def scan_for_wifi(self):
+    async def scan_for_wifi(self, token):
         """Scan for nearby wifi networks."""
         endpoint = "setup/scan_wifi"
         returnvalue = False
         result = await gdh_request(
+            schema="https",
             host=self.host,
-            port=CASTPORT,
+            port=CASTSECPORT,
+            token=token,
             endpoint=endpoint,
             method="post",
             loop=self.loop,
@@ -67,15 +73,17 @@ class Wifi(object):
             log.error(msg)
         return returnvalue
 
-    async def forget_network(self, wpa_id):
+    async def forget_network(self, token, wpa_id):
         """Forget a network."""
         endpoint = "setup/forget_wifi"
         returnvalue = False
         data = {"wpa_id": int(wpa_id)}
         returnvalue = False
         result = await gdh_request(
+            schema="https",
             host=self.host,
-            port=CASTPORT,
+            port=CASTSECPORT,
+            token=token,
             endpoint=endpoint,
             method="post",
             loop=self.loop,
